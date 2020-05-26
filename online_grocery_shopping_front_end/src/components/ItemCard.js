@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 
 const ItemCard = (props) => {
     const { info } = props
@@ -9,9 +10,11 @@ const ItemCard = (props) => {
                 key={info.id}
                 onClick={() => console.log("clicked")}
             >
-            <div className="image">
+             
+            <div className="image" >
                 <img alt="oh no!" src={info.img_url} />
             </div>
+       
             <div className="content">
                 <div className="header">
                     {info.name} {info.category}
