@@ -3,13 +3,14 @@ import Filter from '../components/Filter'
 import DisplayItems from '../components/DisplayItems'
 import Sort from '../components/Sort'
 import SearchForm from '../components/SearchForm.js'
-
+import SingleItem from './SingleItem.js'
 
 export default class Home extends Component{
     state={
         showFilter:false,
         items: [],
         itemShow: []
+    
       }
      
     toggleFilter=()=>{
@@ -22,6 +23,7 @@ export default class Home extends Component{
       .then(res => res.json)
       .then(data =>{
         this.setState({items: data})})
+  
       }
       handleSearch = (event) =>{
         let searchValue = event.target.search.value
@@ -38,7 +40,6 @@ render(){
             <div className="bar3"></div>
         </div>
             {this.state.showFilter? <Filter />:""}
-              <h1> Hi, this is home!</h1>
               <SearchForm onSearch ={this.handleSearch}/>
         
         </div>
