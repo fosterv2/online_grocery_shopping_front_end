@@ -4,7 +4,7 @@ import ItemCard from './ItemCard'
 class ItemBrowser extends Component {
     renderItems = () => {
         const { items } = this.props
-        return items.map(item => <ItemCard info={item} />)
+        return items.map(item => <ItemCard key={item.id} info={item} />)
     }
 
     render() {
