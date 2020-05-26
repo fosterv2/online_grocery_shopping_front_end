@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
 import NavBar from './components/NavBar.js'
-import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, Route} from 'react-router-dom';
 import AboutUs from './pages/AboutUs'
 import Cart from './pages/Cart'
 import UserProfile from './pages/UserProfile'
 import Login from './pages/Login'
 import Home from './pages/Home'
-
-
-export default class App extends Component{
-
+class App extends Component{
   render(){
     return(
       <Router>
@@ -26,3 +23,8 @@ export default class App extends Component{
     )
   }
 }
+
+
+
+
+export default App;
