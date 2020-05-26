@@ -1,26 +1,30 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import SearchForm from '../components/SearchForm.js'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component{
+state = {
+  items :[],
+  itemShow :[]
 }
 
+// const URL = 'localhost/items'
+componentDidMount(){
+fetch(URL)
+.then(res => res.json)
+.then(data =>{
+  this.setState({items: data})})
+}
+
+handleSearch = (event) =>{
+  let searchValue = event.target.search.value
+  let values = this.state.items.filter(item => item.name.includes('searchValue'))
+  this.setState({itemShow:values})
+}
+
+render() {
+  return (<SearchForm onSearch ={this.handleSearch}/>)
+}
+}
 export default App;
