@@ -4,6 +4,9 @@ import DisplayItems from '../components/DisplayItems'
 import Sort from '../components/Sort'
 import SearchForm from '../components/SearchForm.js'
 import SingleItem from './SingleItem.js'
+import ItemBrowser from '../components/ItemBrowser';
+
+const URL = "http://localhost:3000/items"
 
 export default class Home extends Component{
     state={
@@ -18,13 +21,15 @@ export default class Home extends Component{
          showFilter:!this.state.showFilter
          })
     }
+
       componentDidMount(){
       fetch(URL)
-      .then(res => res.json)
+      .then(res => res.json())
       .then(data =>{
         this.setState({items: data})})
   
       }
+
       handleSearch = (event) =>{
         let searchValue = event.target.search.value
         let values = this.state.items.filter(item => item.name.includes('searchValue'))
@@ -41,7 +46,7 @@ render(){
         </div>
             {this.state.showFilter? <Filter />:""}
               <SearchForm onSearch ={this.handleSearch}/>
-        
+              <ItemBrowser items={this.state.items} />
         </div>
     )
 }    
