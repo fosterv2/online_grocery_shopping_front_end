@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 
 const Filter=()=>{
 return(
-    <div className="filter">
-        <p>I am filter</p>
+    <div className="filterBar">
+        <p>Dairy</p>
+        <p>Fruits</p>
     </div>
 )
 }
