@@ -72,7 +72,7 @@
   overflow-x: hidden;
   padding-top: 20px;
 } */
-
+/* display all items style */
 .items {
   background-color: grey;
   display: flex;
@@ -118,4 +118,91 @@
   min-height: 200px;
   border-bottom: 1px solid gray;
   padding-bottom: 3px;
+}
+
+/* single page style */
+.SingleItemDisplay img{
+  width: 500px;
+  height: 500px;
+  margin-top: 20px;
+  margin-bottom: 5px;
+}
+/* increment, decrease, change quantity button style */
+.SingleItemDisplay .minus,
+.SingleItemDisplay .plus{
+  padding: 7px 10px 8px;
+  height: 41px;
+  background-color: #ffffff;
+  border: 1px solid #efefef;
+  cursor:pointer;
+}
+
+.CartItemCard .changeQty .minus,
+.CartItemCard .changeQty .plus{
+  /* padding: 5px 8px 6px; */
+  height: 22px;
+  background-color: #ffffff;
+  border: 1px solid #efefef;
+  cursor:pointer;
+ 
+}
+
+.SingleItemDisplay .minus:hover,
+.SingleItemDisplay .plus:hover,
+.CartItemCard .changeQty .minus:hover,
+.CartItemCard .changeQty .plus:hover{
+  background: #eeeeee;
+}
+.CartItemCard .changeQty .input-text.qty{
+  width: 35px;
+  height: 18px;
+  padding: 1 5px;
+  text-align: center;
+  background-color: transparent;
+  border: 1px solid #efefef;
+}
+
+.SingleItemDisplay .input-text.qty{
+  width: 35px;
+  height: 39px;
+  padding: 0 5px;
+  text-align: center;
+  background-color: transparent;
+  border: 1px solid #efefef;
+}
+.SingleItemDisplay input,
+.input-text.qty input{
+  display: inline-block;
+  margin: 0;
+  vertical-align: top;
+  box-shadow: none;
+}
+.SingleItemDisplay input::-webkit-outer-spin-button,
+.SingleItemDisplay input::-webkit-inner-spin-button,
+.CartItemCard .changeQty input::-webkit-outer-spin-button,
+.CartItemCard .changeQty input::-webkit-inner-spin-button{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  margin: 0;
+}
+/* cart item style */
+.CartItemCard {
+  /* border-top:    1px groove grey; */
+
+  border-bottom: 3px groove lightgray;
+ 
+}
+
+.CartItemCard .image {
+  width: 100px;
+  height: 100px;
+  margin-top: 20px;
+  margin-bottom: 5px;
+}
+.CartItemCard .price{
+  text-align: right;
+}
+.CartItemCard .delete,
+.CartItemCard .name {
+  text-align: center;
 }
