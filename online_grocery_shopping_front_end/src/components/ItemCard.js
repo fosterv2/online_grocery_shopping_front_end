@@ -21,7 +21,7 @@ const ItemCard = (props) => {
                 </div>
             </div>
             <div className="buy">
-                <button onClick={() => console.log("the event listener to buy an item")}>Buy</button>
+                <button onClick={() => console.log("the event listener to buy an item")}>Add to cart</button>
             </div>
         </div>
     )

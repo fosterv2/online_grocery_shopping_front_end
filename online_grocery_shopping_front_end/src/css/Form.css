@@ -1,0 +1,43 @@
+.form {
+    padding: 20px;
+}
+
+.field {
+    padding: 10px;
+}
+
+input, textarea {
+    margin-top: 5px;
+    margin-right: 10px;
+    padding: 5px;
+    font-size: 15px;
+    border: 3px solid grey;
+    border-radius: 5px;
+    width: 250px;
+    outline: none;
+}
+
+input:focus {
+    border: 3px solid black;
+}
+
+textarea {
+    height: 60px;
+}
+
+button {
+    background-color: gray;
+    font-size: 20px;
+    border-radius: 5px;
+    color: white;
+    padding: 5px;
+    outline: none;
+}
+
+button:hover {
+    background-color: #606060;
+}
+
+.form.button button {
+    width: 243px;
+}
