@@ -23,7 +23,7 @@ export default class Home extends Component{
     // }
 
     render(){
-        const {items} = this.props
+        const {items,categories} = this.props
         return(
             <div className = "home">
             <div className={this.state.showFilter?"change":"filterContainer"} onClick={this.toggleFilter}>
@@ -31,7 +31,7 @@ export default class Home extends Component{
                 <div className="bar2"></div>
                 <div className="bar3"></div>
             </div>
-                {this.state.showFilter? <Filter />:""}
+                {this.state.showFilter? <Filter categories={categories}/>:""}
                 {/* <SearchForm onSearch ={this.handleSearch}/> */}
                 <ItemBrowser items={items} />
             </div>
