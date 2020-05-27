@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
+import './css/Form.css';
+import './css/ItemCard.css'
 import NavBar from './components/NavBar.js'
 import { BrowserRouter as Router, Route} from 'react-router-dom';
 import AboutUs from './pages/AboutUs'
@@ -7,9 +9,12 @@ import Cart from './pages/Cart'
 import UserProfile from './pages/UserProfile'
 import Login from './pages/Login'
 import Home from './pages/Home'
+<<<<<<< HEAD
 import SingleItem from './pages/SingleItem'
 
 const URL = "http://localhost:3000/items"
+=======
+>>>>>>> cdcd67d3d29be3861a8e777592f2accd1765d660
 
 class App extends Component{
   state={
