@@ -18,13 +18,13 @@ export default class Home extends Component{
          })
     }
       componentDidMount(){
-      fetch(URL)
+      fetch('http://localhost:3000/items')
       .then(res => res.json)
       .then(data =>{
         this.setState({items: data})})
       }
       handleSearch = (event) =>{
-        let searchValue = event.target.search.value
+        let searchValue = event.target.value
         let values = this.state.items.filter(item => item.name.includes('searchValue'))
         this.setState({itemShow:values})
       }
