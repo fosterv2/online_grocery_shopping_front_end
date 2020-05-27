@@ -10,7 +10,7 @@ export default class SingleItem extends Component{
         const id= this.props.match.params.id
         let foundItem = {img_url:"",name:"", price:"",category:"",description:""}
         for(let item of this.props.items){
-            if(item.id == id){
+            if(item.id === id){
                 foundItem=item
             }
         }
@@ -45,7 +45,7 @@ export default class SingleItem extends Component{
 
         return(
             <div className = "SingleItemDisplay">
-                <img src={img_url}/>
+                <img src={img_url} alt={name}/>
                 <h1>{name}</h1>
                 <h3>{category}</h3>
                 <h3>{price}</h3>

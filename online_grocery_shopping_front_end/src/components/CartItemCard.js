@@ -37,7 +37,7 @@ const handleDelete=()=>{
          <strong>{item.name}</strong>
          </div>
             <div className="image">
-         <img src={item.img_url}/>
+         <img src={item.img_url} alt={item.name}/>
          </div>
          <div className="price">
              $ {Math.round(item.price * quantity*100)/100}
