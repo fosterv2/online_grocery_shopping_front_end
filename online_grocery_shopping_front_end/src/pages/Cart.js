@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+import Checkout from './Checkout'
 
 
 export default class Cart extends Component{
 
 render(){
     return(
-        <h1> Hi, this is cart!</h1>
+        
+        <Checkout data ={this.props} />
+        
     )
 }    
 }

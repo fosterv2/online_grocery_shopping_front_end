@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import Filter from '../components/Filter'
 import DisplayItems from '../components/DisplayItems'
 import Sort from '../components/Sort'
@@ -11,7 +11,10 @@ export default class Home extends Component{
     state={
         showFilter:false,
         items: [],
-        itemShow: []
+        itemShow: [],
+        alphabetic: false,
+        price: false
+        // items gathers all items, itemShow is what is getting displayed
       }
      
     toggleFilter=()=>{
@@ -24,17 +27,33 @@ export default class Home extends Component{
       fetch(URL)
       .then(res => res.json())
       .then(data =>{
-        this.setState({items: data})})
+        this.setState({items: data, itemShow: data})})
       }
 
       handleSearch = (event) =>{
-        let searchValue = event.target.value
-        let values = this.state.items.filter(item => item.name.includes('searchValue'))
+        let searchValue = event.target.value.toLowerCase()
+        let values = this.state.items.filter(item => item.name.toLowerCase().includes(searchValue))
+        console.log(values)
         this.setState({itemShow:values})
       }
+      
+      // handleCheckbox =(event) =>{
+      //   // let alphabet = event.target.alphabet.value
+      //   // let price = event.target.alphabet.value
+        
+      //   let property = event.target.name
+        
+      //   this.setState({property: !this.state.property })
+
+      //   if(this.state.property){
+      //     this.state.property
+      //   }
+      // }
 
 render(){
     return(
+      <Fragment>
+        <Sort onSort ={this.handleCheckbox} data={this.state}/>
         <div className = "home">
         <div className={this.state.showFilter?"change":"filterContainer"} onClick={this.toggleFilter}>
             <div className="bar1"></div>
@@ -44,8 +63,12 @@ render(){
             {this.state.showFilter? <Filter />:""}
               <h1> Hi, this is home!</h1>
               <SearchForm onSearch ={this.handleSearch}/>
-              <ItemBrowser items={this.state.items} />
+              <ItemBrowser items={this.state.itemShow} /> 
+              {/* changeditem to itemShow */}
+              
         </div>
+        
+        </Fragment>
     )
 }    
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 
-export default class Checkout extends Component{
+class Checkout extends Component{
 
 //     state ={
 //         name: "",
@@ -18,12 +18,12 @@ export default class Checkout extends Component{
 //     toggle = () =>{
 //         this.setState({on: !this.state.on})
 //     }
-//     // componentDidMount(){
-//     //     fetch(URL)
-//     //     .then(res=>res.json())
-//     //     .then(data=> {
-//     //         total: )
-//     // }
+//     componentDidMount(){
+//         fetch(URL)
+//         .then(res=>res.json())
+//         .then(data=> {
+//             total: )
+//     }
     
 // render(){
 //     return(
@@ -36,8 +36,9 @@ export default class Checkout extends Component{
 //         <input type="submit" value="Submit" />
 //         </form>
 //         :
-//         <h1>Congratulations {this.state.name}, you just made your first purchase. These items will get shipped to the address: {this.state.address}</h1>
+//         <h1>Thank for shopping with us {this.state.name}! Your purchase was processed and these items will get shipped to the address: {this.state.address}</h1>
 //         }
 //     )
 // }    
 }
+export default Checkout
