@@ -22,6 +22,9 @@ export default class Home extends Component{
     // this.setState({itemShow:values})
     // }
 
+    filterBy=(category)=>{
+
+    }
     render(){
         const {items,categories} = this.props
         return(
@@ -31,7 +34,7 @@ export default class Home extends Component{
                 <div className="bar2"></div>
                 <div className="bar3"></div>
             </div>
-                {this.state.showFilter? <Filter categories={categories}/>:""}
+                {this.state.showFilter? <Filter categories={categories} filterBy={this.filterBy}/>:""}
                 {/* <SearchForm onSearch ={this.handleSearch}/> */}
                 <ItemBrowser items={items} />
             </div>
