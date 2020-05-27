@@ -38,7 +38,7 @@ render() {
               <input
                 name="password"
                 type="password"
-                placeholder="password"
+                placeholder="Enter password"
                 value={password}
                 onChange={this.handleChange}
               />
