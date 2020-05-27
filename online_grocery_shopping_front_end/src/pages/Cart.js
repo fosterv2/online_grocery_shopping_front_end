@@ -10,7 +10,7 @@ export default class Cart extends Component{
     calculateTotal=()=>{
         let total = 0
          Object.values(this.props.cart).map((cartItem) => total+=cartItem.item.price * cartItem.quantity)
-         return total
+         return Math.round(total*100)/100
     }
     handleClick=()=>{
         
