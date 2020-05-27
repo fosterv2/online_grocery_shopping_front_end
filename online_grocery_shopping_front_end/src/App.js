@@ -9,8 +9,19 @@ import Cart from './pages/Cart'
 import UserProfile from './pages/UserProfile'
 import Login from './pages/Login'
 import Home from './pages/Home'
+import Signup from './pages/Signup';
 
 class App extends Component{
+  state = {
+    currentUser: {}
+  }
+
+  login = user => {
+    console.log(user)
+    this.setState({ currentUser: user })
+    localStorage.setItem("user_id", user.id)
+  }
+
   render(){
     return(
       <Router>
@@ -20,7 +31,8 @@ class App extends Component{
           <Route exact path="/about" component={AboutUs}/>
           <Route exact path="/cart" component={Cart}/>
           <Route exact path="/profile" component={UserProfile}/>
-          <Route exact path="/login" component={Login}/>
+          <Route exact path="/signup" render={props => <Signup {...props} onLogin={this.login} />}/>
+          <Route exact path="/login" render={props => <Login {...props} onLogin={this.login} />}/>
          </div>
       </Router>
     )
