@@ -12,6 +12,7 @@ import Home from './pages/Home'
 <<<<<<< HEAD
 import SingleItem from './pages/SingleItem'
 
+const BASEURL = "http://localhost:3000"
 const URL = "http://localhost:3000/items"
 =======
 >>>>>>> cdcd67d3d29be3861a8e777592f2accd1765d660
@@ -19,7 +20,13 @@ const URL = "http://localhost:3000/items"
 class App extends Component{
   state={
     items: [],
-    itemShow: []
+    itemShow: [],
+    cart:{
+      2:{item: {category: "Snacks", id: 2, img_url: "https://i.imgur.com/a1cLXfi.jpg", name: "Wheat Thins", price: 3.44}, quantity: 4},
+    8: {item: {category: "Produce", id: 8, img_url:"https://i.imgur.com/LWHra2y.jpg", name: "Red Bell Pepper", price: 1.38}, quantity: 5},
+    25: {item: {category: "Dairy", id: 25, img_url: "https://i.imgur.com/JdCvsTx.jpg", name: "Milk", price: 4.49}, quantity: 1}
+    }
+    
   }
 
   componentDidMount(){
@@ -27,17 +34,74 @@ class App extends Component{
     .then(res => res.json())
     .then(data =>{
       this.setState({items: data})})
-
     }
+    //increment Qty
+  addToCart=(item,quantity)=>{
+
+  //   fetch(`${BASEURL}/cart_items`,{
+  //     method: "POST",
+  //     headers: {
+  //         "Content-Type": "application/json",
+  //         Accept: "application/json"
+  //     },
+  //     body: JSON.stringify({
+  //         user_id: 1,
+  //         item_id: item.id,
+  //         quantity:quantity
+  //     })
+  // })
+  // .then(res => res.json())
+  // .then(json =>  { this.setState(prev=>{
+  //   return {cart:[...prev.cart,{item: item,quantity:quantity}]}
+  //   })}
+  //   )
+    let itemAndQty={[item.id]:{item: item,quantity:quantity}}
+    if(this.state.cart[item.id]){
+      // modify the quantity
+      this.setState(prev=>{
+      let newCart =  prev.cart
+      newCart[item.id].quantity += quantity
+      return{
+        cart: newCart
+      }
+      })
+    }else{
+      this.setState({
+        cart:{
+          ...this.state.cart,
+          ...itemAndQty
+        }
+      })
+    }
+  }
+  //replace old Qty with new Qty
+  updateCart=(item,quantity)=>{
+    this.setState(prev=>{
+      let newCart =  prev.cart
+      newCart[item.id].quantity = quantity
+      return{
+        cart: newCart
+      }
+      })
+  }
+  deleteFromCart=(item)=>{
+    this.setState(prev=>{
+      let newCart =  prev.cart
+      delete newCart[item.id]
+      return{
+        cart: newCart
+      }
+      })
+  }
   render(){
     return(
       <Router>
           <NavBar/>
           <div className = "main">
           <Route exact path="/" render={()=><Home items={this.state.items}/>}/>
-          <Route exact path="/items/:id" render={()=><SingleItem/>}/>
+          <Route exact path="/items/:id" render={(props)=><SingleItem {...props} items={this.state.items} addToCart={this.addToCart}/>}/>
           <Route exact path="/about" component={AboutUs}/>
-          <Route exact path="/cart" component={Cart}/>
+          <Route exact path="/cart" render={()=><Cart cart={this.state.cart} updateCart={this.updateCart} deleteFromCart={this.deleteFromCart}/>}/>
           <Route exact path="/profile" component={UserProfile}/>
           <Route exact path="/login" component={Login}/>
          </div>
@@ -50,3 +114,4 @@ class App extends Component{
 
 
 export default App;
+
