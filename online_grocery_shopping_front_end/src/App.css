@@ -202,7 +202,10 @@
 .CartItemCard .price{
   text-align: right;
 }
-.CartItemCard .delete,
+.CartItemCard .delete{
+  text-align: center;
+
+}
 .CartItemCard .name {
   text-align: center;
 }
