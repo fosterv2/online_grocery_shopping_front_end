@@ -9,13 +9,10 @@ import Cart from './pages/Cart'
 import UserProfile from './pages/UserProfile'
 import Login from './pages/Login'
 import Home from './pages/Home'
-<<<<<<< HEAD
 import SingleItem from './pages/SingleItem'
 
 const BASEURL = "http://localhost:3000"
 const URL = "http://localhost:3000/items"
-=======
->>>>>>> cdcd67d3d29be3861a8e777592f2accd1765d660
 
 class App extends Component{
   state={
