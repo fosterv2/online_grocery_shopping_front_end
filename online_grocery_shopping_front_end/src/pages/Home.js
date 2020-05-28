@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import Filter from '../components/Filter'
 import Sort from '../components/Sort'
 import SearchForm from '../components/SearchForm.js'
@@ -15,26 +15,37 @@ export default class Home extends Component{
          showFilter:!this.state.showFilter
          })
     }
+      
+      handleCheckbox =(event) =>{
+        
+        // let property = event.target.name
+        
+        // this.setState({property: !this.state.property })
 
-    // handleSearch = (event) =>{
-    // let searchValue = event.target.search.value
-    // let values = this.state.items.filter(item => item.name.includes(searchValue))
-    // this.setState({itemShow:values})
-    // }
+        // if(this.state.property){
+        //   this.state.property
+        // }
+      }
 
-    render(){
-        const {items} = this.props
-        return(
-            <div className = "home">
-            <div className={this.state.showFilter?"change":"filterContainer"} onClick={this.toggleFilter}>
-                <div className="bar1"></div>
-                <div className="bar2"></div>
-                <div className="bar3"></div>
-            </div>
-                {this.state.showFilter? <Filter />:""}
-                {/* <SearchForm onSearch ={this.handleSearch}/> */}
-                <ItemBrowser items={items} />
-            </div>
-        )
-    }    
+render(){
+  const {itemShow} = this.props
+    return(
+      <Fragment>
+        <Sort onSort ={this.handleCheckbox} data={this.state}/>
+        <div className = "home">
+        <div className={this.state.showFilter?"change":"filterContainer"} onClick={this.toggleFilter}>
+            <div className="bar1"></div>
+            <div className="bar2"></div>
+            <div className="bar3"></div>
+        </div>
+            {this.state.showFilter? <Filter />:""}
+              <SearchForm onSearch ={this.props.onSearch}/>
+              <ItemBrowser items={itemShow} /> 
+              {/* changeditem to itemShow */}
+              
+        </div>
+        
+        </Fragment>
+    )
 }
+}    
