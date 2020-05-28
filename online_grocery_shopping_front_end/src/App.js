@@ -48,9 +48,9 @@ class App extends Component{
     }
     )
   
-    fetch(`${BASEURL}/cart_items/${this.state.userId}`)
-    .then(res=>res.json())
-    .then(console.log)
+    // fetch(`${BASEURL}/cart_items/${this.state.userId}`)
+    // .then(res=>res.json())
+    // .then(console.log)
   
   
   
