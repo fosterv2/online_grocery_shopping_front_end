@@ -39,9 +39,7 @@ export default class UserProfile extends Component {
             body: JSON.stringify(this.state.fields)
         })
         .then(resp => resp.json())
-        .then(user => {
-            console.log(user)
-        })
+        .then(console.log)
         .catch()
     }
 
@@ -49,7 +47,7 @@ export default class UserProfile extends Component {
         const { username, color, address, wallet, email } = this.state.fields
         return(
             <div className="ui form">
-                {this.state.error ? <h1>That username is already taken</h1> : null}
+                <h1>Your User Profile</h1>
                 <form onSubmit={this.handleSubmit}>
                     <div className="ui field">
                         <label>Username</label><br/>
