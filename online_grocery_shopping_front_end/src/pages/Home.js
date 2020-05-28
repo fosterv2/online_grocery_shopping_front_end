@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import Filter from '../components/Filter'
-import Sort from '../components/Sort'
 import SearchForm from '../components/SearchForm.js'
 import SingleItem from './SingleItem.js'
 import ItemBrowser from '../components/ItemBrowser';
+import Sort from '../components/Sort'
 
 export default class Home extends Component{
     state={
@@ -16,22 +16,22 @@ export default class Home extends Component{
          })
     }
       
-      handleCheckbox =(event) =>{
+      // handleCheckbox =(event) =>{
         
-        // let property = event.target.name
+      //   // let property = event.target.name
         
-        // this.setState({property: !this.state.property })
+      //   // this.setState({property: !this.state.property })
 
-        // if(this.state.property){
-        //   this.state.property
-        // }
-      }
+      //   // if(this.state.property){
+      //   //   this.state.property
+      //   // }
+      // }
 
 render(){
   const {itemShow} = this.props
     return(
       <Fragment>
-        <Sort onSort ={this.handleCheckbox} data={this.state}/>
+        <Sort onSort ={this.props.onSort} data={this.state}/>
         <div className = "home">
         <div className={this.state.showFilter?"change":"filterContainer"} onClick={this.toggleFilter}>
             <div className="bar1"></div>

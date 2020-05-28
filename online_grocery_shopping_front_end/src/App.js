@@ -12,6 +12,7 @@ import Home from './pages/Home'
 import SingleItem from './pages/SingleItem'
 import Signup from './pages/Signup';
 
+
 const BASEURL = "http://localhost:3000"
 const URL = "http://localhost:3000/items"
 
@@ -25,8 +26,7 @@ class App extends Component{
     25: {item: {category: "Dairy", id: 25, img_url: "https://i.imgur.com/JdCvsTx.jpg", name: "Milk", price: 4.49}, quantity: 1}
     },
     currentUser: {},
-    alphabetic: false,
-    price: false
+    sortItem: []
     // items gathers all items, itemShow is what is getting displayed
   }
 
@@ -43,6 +43,35 @@ class App extends Component{
       this.setState({items: data, itemShow: data})})
     }
     //increment Qty
+    handleSort =(event) =>{
+      let newItems = [...this.state.items]
+      let priceItems = [...this.state.items]
+let arrayABC = newItems.sort((a, b) => (a.name > b.name) ? 1 : (a.name === b.name) ? ((a.size > b.size) ? 1 : -1) : -1 )
+let arrayZYX = [...arrayABC].reverse()
+let arrayLH = priceItems.sort((a, b) => (a.price > b.price) ? 1 : (a.price === b.price) ? ((a.size > b.size) ? 1 : -1) : -1 )
+let arrayHL = [...arrayLH].reverse()
+// if(event.target.value === 'AlphaABC'){
+//   this.setState({itemShow: arrayABC})
+//   console.log(arrayABC)
+
+switch (event.target.value) {
+  case "None":
+  this.setState({itemShow: this.state.items})
+  break;
+  case "AlphaABC":
+    this.setState({itemShow: arrayABC})
+    break;
+  case "AlphaZYX":
+    this.setState({itemShow: arrayZYX})
+    break;
+  case "PriceHL":
+    this.setState({itemShow: arrayHL})
+    break;
+  case "PriceLH":
+    this.setState({itemShow: arrayLH})
+    break;
+    }
+  }
   addToCart=(item,quantity)=>{
 
   //   fetch(`${BASEURL}/cart_items`,{
@@ -111,7 +140,7 @@ class App extends Component{
       <Router>
           <NavBar/>
           <div className = "main">
-          <Route exact path="/" render={()=><Home itemShow={this.state.itemShow} onSearch ={this.handleSearch}/>}/>
+          <Route exact path="/" render={()=><Home itemShow={this.state.itemShow} onSearch ={this.handleSearch} onSort ={this.handleSort}/>}/>
           <Route exact path="/items/:id" render={(props)=><SingleItem {...props} items={this.state.items} addToCart={this.addToCart}/>}/>
           <Route exact path="/about" component={AboutUs}/>
           <Route exact path="/cart" render={()=><Cart cart={this.state.cart} updateCart={this.updateCart} deleteFromCart={this.deleteFromCart}/>}/>
