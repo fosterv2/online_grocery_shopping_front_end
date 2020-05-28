@@ -47,8 +47,13 @@ class App extends Component{
       })
     }
     )
-  
-    fetch(`${BASEURL}/cart_items/${this.state.userId}`)
+    if(this.state.loggedIn) {
+      this.fetchCartItems()
+    }
+  }
+
+  fetchCartItems = () => {
+    fetch(`${BASEURL}/cart_items/${localStorage.getItem("user_id")}`)
     .then(res=>res.json())
     .then(console.log)
   }
@@ -165,6 +170,7 @@ class App extends Component{
 
   login = user => {
     localStorage.setItem("user_id", user.id)
+    this.fetchCartItems()
     this.setState({ loggedIn: true })
   }
 
