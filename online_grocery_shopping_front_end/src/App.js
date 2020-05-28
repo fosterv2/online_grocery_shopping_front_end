@@ -23,8 +23,7 @@ class App extends Component{
       2:{item: {category: "Snacks", id: 2, img_url: "https://i.imgur.com/a1cLXfi.jpg", name: "Wheat Thins", price: 3.44}, quantity: 4},
     8: {item: {category: "Produce", id: 8, img_url:"https://i.imgur.com/LWHra2y.jpg", name: "Red Bell Pepper", price: 1.38}, quantity: 5},
     25: {item: {category: "Dairy", id: 25, img_url: "https://i.imgur.com/JdCvsTx.jpg", name: "Milk", price: 4.49}, quantity: 1}
-    },
-    currentUser: {}
+    }
   }
 
   componentDidMount(){
@@ -93,7 +92,7 @@ class App extends Component{
   }
 
   login = user => {
-    this.setState({ currentUser: user })
+    // this.setState({ currentUser: user })
     localStorage.setItem("user_id", user.id)
   }
 
@@ -106,7 +105,7 @@ class App extends Component{
           <Route exact path="/items/:id" render={(props)=><SingleItem {...props} items={this.state.items} addToCart={this.addToCart}/>}/>
           <Route exact path="/about" component={AboutUs}/>
           <Route exact path="/cart" render={()=><Cart cart={this.state.cart} updateCart={this.updateCart} deleteFromCart={this.deleteFromCart}/>}/>
-          <Route exact path="/profile" component={UserProfile}/>
+          <Route exact path="/profile" render={() => <UserProfile user={this.state.currentUser} />}/>
           <Route exact path="/signup" render={props => <Signup {...props} onLogin={this.login} />}/>
           <Route exact path="/login" render={props => <Login {...props} onLogin={this.login} />}/>
          </div>
