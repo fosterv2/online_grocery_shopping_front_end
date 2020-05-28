@@ -25,21 +25,32 @@ class App extends Component{
     25: {item: {category: "Dairy", id: 25, img_url: "https://i.imgur.com/JdCvsTx.jpg", name: "Milk", price: 4.49}, quantity: 1}
     },
     currentUser: {},
-    categories:[]
+    categories:[],
     
+    alphabetic: false,
+    price: false
+    // items gathers all items, itemShow is what is getting displayed
   }
 
+  handleSearch = (event) =>{
+    let searchValue = event.target.value.toLowerCase()
+    let values = this.state.items.filter(item => item.name.toLowerCase().includes(searchValue))
+    console.log(values)
+    this.setState({itemShow:values})
+  }
   componentDidMount(){
     fetch(URL)
     .then(res => res.json())
     .then(data =>{
       let ca = data.map(item=>item.category)
       this.setState({items: data,
+        itemShow: data,
         //get unique category
         categories:ca.filter((value,index,self)=>{return self.indexOf(value) ===index})
       })
-    })
     }
+    )}
+   
     //increment Qty
   addToCart=(item,quantity)=>{
 
@@ -107,7 +118,8 @@ class App extends Component{
       <Router>
           <NavBar/>
           <div className = "main">
-          <Route exact path="/" render={()=><Home items={this.state.items} categories={this.state.categories}/>}/>
+          <Route exact path="/" render={()=><Home itemShow={this.state.itemShow} onSearch ={this.handleSearch} categories={this.state.categories}/>}/>
+
           <Route exact path="/items/:id" render={(props)=><SingleItem {...props} items={this.state.items} addToCart={this.addToCart}/>}/>
           <Route exact path="/about" component={AboutUs}/>
           <Route exact path="/cart" render={()=><Cart cart={this.state.cart} updateCart={this.updateCart} deleteFromCart={this.deleteFromCart}/>}/>

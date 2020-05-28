@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Checkout from './Checkout'
+
 import CartItemCard from '../components/CartItemCard'
 
 export default class Cart extends Component{
@@ -18,6 +20,9 @@ export default class Cart extends Component{
 render(){
     
     return(
+        
+        // <Checkout data ={this.props} />
+        
         <div>
             {this.populateItems()}
     <div>Total: {this.calculateTotal()}</div>
