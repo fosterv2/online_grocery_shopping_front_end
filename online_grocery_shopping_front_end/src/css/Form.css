@@ -25,7 +25,12 @@ textarea {
     height: 60px;
 }
 
-button {
+.form.button button:hover {
+    background-color: #606060;
+}
+
+.form.button button {
+    width: 243px;
     background-color: gray;
     font-size: 20px;
     border-radius: 5px;
