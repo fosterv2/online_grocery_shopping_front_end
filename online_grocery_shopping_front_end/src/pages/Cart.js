@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Checkout from './Checkout'
+import { Link } from "react-router-dom";
 
 import CartItemCard from '../components/CartItemCard'
 
@@ -14,9 +14,7 @@ export default class Cart extends Component{
          Object.values(this.props.cart).map((cartItem) => total+=cartItem.item.price * cartItem.quantity)
          return Math.round(total*100)/100
     }
-    handleClick=()=>{
-        
-    }
+   
 render(){
     
     return(
@@ -27,7 +25,9 @@ render(){
             {this.populateItems()}
     <div>Total: {this.calculateTotal()}</div>
     <div>
-        <button onClick={this.handleClick}>Check out</button>
+    <Link to={"/checkout"}>
+        <button>Check out</button>
+        </Link>
     </div>
         </div>
     )

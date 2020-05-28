@@ -2,8 +2,8 @@ import React, { Component, Fragment } from 'react';
 import Filter from '../components/Filter'
 import Sort from '../components/Sort'
 import SearchForm from '../components/SearchForm.js'
-import SingleItem from './SingleItem.js'
 import ItemBrowser from '../components/ItemBrowser';
+import Sidebar from "react-sidebar";
 
 export default class Home extends Component{
     state={
@@ -27,12 +27,10 @@ export default class Home extends Component{
         // }
       }
 
-    filterBy=(category)=>{
-
-    }
+    
 
 render(){
-    const {items,categories} = this.props
+    const {itemShow,categories,filterBy} = this.props
     return(
       <Fragment>
         <Sort onSort ={this.handleCheckbox} data={this.state}/>
@@ -42,10 +40,10 @@ render(){
             <div className="bar2"></div>
             <div className="bar3"></div>
         </div>
-        {this.state.showFilter? <Filter categories={categories} filterBy={this.filterBy}/>:""}
+        {this.state.showFilter? <Filter categories={categories} filterBy={filterBy}/>:""}
               <SearchForm onSearch ={this.props.onSearch}/>
               <ItemBrowser items={itemShow} /> 
-              {/* changeditem to itemShow */}
+              {/* changed item to itemShow */}
               
         </div>
         

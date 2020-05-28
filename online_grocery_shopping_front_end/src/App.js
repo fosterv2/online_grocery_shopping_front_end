@@ -11,6 +11,7 @@ import Login from './pages/Login'
 import Home from './pages/Home'
 import SingleItem from './pages/SingleItem'
 import Signup from './pages/Signup';
+import Checkout from './pages/Checkout'
 
 const BASEURL = "http://localhost:3000"
 const URL = "http://localhost:3000/items"
@@ -26,30 +27,34 @@ class App extends Component{
     },
     currentUser: {},
     categories:[],
-    
     alphabetic: false,
-    price: false
+    price: false,
+    userId: localStorage.getItem("user_id")
     // items gathers all items, itemShow is what is getting displayed
   }
 
-  handleSearch = (event) =>{
-    let searchValue = event.target.value.toLowerCase()
-    let values = this.state.items.filter(item => item.name.toLowerCase().includes(searchValue))
-    console.log(values)
-    this.setState({itemShow:values})
-  }
+ 
   componentDidMount(){
     fetch(URL)
     .then(res => res.json())
     .then(data =>{
-      let ca = data.map(item=>item.category)
-      this.setState({items: data,
+      // let ca = 
+      this.setState({
+        items: data,
         itemShow: data,
         //get unique category
-        categories:ca.filter((value,index,self)=>{return self.indexOf(value) ===index})
+        categories:data.map(item=>item.category).filter((value,index,self)=>{return self.indexOf(value) ===index})
       })
     }
     )}
+
+    //get user data and add to state, pass to checkout and user profile update 
+  //   componentDidMount(){
+  //     fetch(`BASEURL/users/${userId}`)
+  //     .then(res=>res.json())
+  //     .then(data=> data)
+  // }
+  
    
     //increment Qty
   addToCart=(item,quantity)=>{
@@ -61,7 +66,7 @@ class App extends Component{
   //         Accept: "application/json"
   //     },
   //     body: JSON.stringify({
-  //         user_id: 1,
+  //         user_id: userId,
   //         item_id: item.id,
   //         quantity:quantity
   //     })
@@ -99,6 +104,11 @@ class App extends Component{
       })
   }
   deleteFromCart=(item)=>{
+   //how to get the cartitemid? write fetch request to the backend, 
+   //pass item_id and user_id to find cart_item_id then send back to front end?
+  //  fetch(`${BASEURL}/cart_items/${cartItemId}`,{
+  //    method: 'DELETE'
+  //  })
     this.setState(prev=>{
       let newCart =  prev.cart
       delete newCart[item.id]
@@ -112,20 +122,36 @@ class App extends Component{
     this.setState({ currentUser: user })
     localStorage.setItem("user_id", user.id)
   }
+  handleSearch = (event) =>{
+    let searchValue = event.target.value.toLowerCase()
+    let values = this.state.items.filter(item => item.name.toLowerCase().includes(searchValue))
+    // console.log(values)
+    this.setState({itemShow:values})
+  }
+  filterBy=(category)=>{
+    let values=[]
+    if(category!=="All"){
+     values = this.state.items.filter(item => item.category===category)}
+    else{
+     values = this.state.items
+    }
+  
+    this.setState({itemShow:values})
 
+  }
   render(){
     return(
       <Router>
-          <NavBar/>
+          <NavBar cart={this.state.cart}/>
           <div className = "main">
-          <Route exact path="/" render={()=><Home itemShow={this.state.itemShow} onSearch ={this.handleSearch} categories={this.state.categories}/>}/>
-
-          <Route exact path="/items/:id" render={(props)=><SingleItem {...props} items={this.state.items} addToCart={this.addToCart}/>}/>
+          <Route exact path="/" render={()=><Home itemShow={this.state.itemShow} onSearch ={this.handleSearch} filterBy={this.filterBy} categories={this.state.categories}/>}/>
+          <Route exact path="/items/:id" render={props=><SingleItem {...props} items={this.state.items} addToCart={this.addToCart}/>}/>
           <Route exact path="/about" component={AboutUs}/>
           <Route exact path="/cart" render={()=><Cart cart={this.state.cart} updateCart={this.updateCart} deleteFromCart={this.deleteFromCart}/>}/>
           <Route exact path="/profile" component={UserProfile}/>
           <Route exact path="/signup" render={props => <Signup {...props} onLogin={this.login} />}/>
           <Route exact path="/login" render={props => <Login {...props} onLogin={this.login} />}/>
+          <Route exact path="/checkout" render={(props)=><Checkout {...props} cart={this.state.cart} />}/>
          </div>
       </Router>
     )
