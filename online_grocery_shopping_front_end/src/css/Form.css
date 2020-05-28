@@ -38,3 +38,16 @@ textarea {
     padding: 5px;
     outline: none;
 }
+
+button:hover {
+    background-color: #606060;
+}
+
+.form.button button {
+    width: 243px;
+}
+
+.Sort{
+    margin-left: 200px;
+    border: 100px;
+}
