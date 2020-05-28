@@ -12,7 +12,7 @@ import Home from './pages/Home'
 import SingleItem from './pages/SingleItem'
 import Signup from './pages/Signup';
 import Checkout from './pages/Checkout'
-
+import placedOrder from './pages/placedOrder'
 const BASEURL = "http://localhost:3000"
 const URL = "http://localhost:3000/items"
 
@@ -20,11 +20,11 @@ class App extends Component{
   state={
     items: [],
     itemShow: [],
-    cart:{
+    cart:[],
     //   2:{item: {category: "Snacks", id: 2, img_url: "https://i.imgur.com/a1cLXfi.jpg", name: "Wheat Thins", price: 3.44}, quantity: 4},
     // 8: {item: {category: "Produce", id: 8, img_url:"https://i.imgur.com/LWHra2y.jpg", name: "Red Bell Pepper", price: 1.38}, quantity: 5},
     // 25: {item: {category: "Dairy", id: 25, img_url: "https://i.imgur.com/JdCvsTx.jpg", name: "Milk", price: 4.49}, quantity: 1}
-    },
+    
     currentUser: {},
     categories:[],
     alphabetic: false,
@@ -48,9 +48,13 @@ class App extends Component{
     }
     )
   
-    // fetch(`${BASEURL}/cart_items/${this.state.userId}`)
-    // .then(res=>res.json())
-    // .then(console.log)
+    fetch(`${BASEURL}/cart_items/${this.state.userId}`)
+    .then(res=>res.json())
+    .then(data=>{
+      this.setState({
+        cart:data
+      })
+    })
   
   
   
@@ -65,10 +69,15 @@ class App extends Component{
   
    
     //increment Qty
-  addToCart=(item,quantity)=>{
+  addToCart=(item,quantity=1)=>{
 
-   const find = Object.keys(this.state.cart).find(cartItem=>this.state.cart[cartItem].item.id===item.id)
+  //  const find = Object.keys(this.state.cart).find(cartItem=>this.state.cart[cartItem].item.id===item.id)
+  let ind = 0  
+  const find= this.state.cart.find((cartItem,index)=>{
+      ind = index
+      return cartItem.item.id===item.id
     
+    })
     
     if(!find){
    fetch(`${BASEURL}/cart_items`,{
@@ -87,33 +96,32 @@ class App extends Component{
   .then(cartItem =>  {
 
 // console.log(cartItem.id)
-    let itemAndQty={[cartItem.id]:{item: item,quantity:quantity}}
+    let itemAndQty={id: cartItem.id ,item: item,quantity:quantity}
     this.setState({
-      cart:{
-        ...this.state.cart,
-        ...itemAndQty
-      }
+      cart:
+        [...this.state.cart,
+        itemAndQty
+        ]
     })
   }
     )
     }else{
       
-      fetch(`${BASEURL}/cart_items/${find}`,{
+      fetch(`${BASEURL}/cart_items/${find.id}`,{
         method: "PATCH",
         headers: {
             "Content-Type": "application/json",
             Accept: "application/json"
         },
         body: JSON.stringify({
-            quantity:this.state.cart[find].quantity+quantity
+            quantity:find.quantity+quantity
         })
     })
     .then(res => res.json())
     .then(cartItem=>{
-
       this.setState(prev=>{
         let newCart =  prev.cart
-        newCart[find].quantity += quantity
+        newCart[ind].quantity += quantity
         return{
           cart: newCart
         }
@@ -123,9 +131,13 @@ class App extends Component{
   }
   // replace old Qty with new Qty
   updateCart=(item,quantity)=>{
-    const find = Object.keys(this.state.cart).find(cartItem=>this.state.cart[cartItem].item.id===item.id)
-
-    fetch(`${BASEURL}/cart_items/${find}`,{
+    let ind = 0  
+    const find= this.state.cart.find((cartItem,index)=>{
+        ind = index
+        return cartItem.item.id===item.id
+      
+      })
+    fetch(`${BASEURL}/cart_items/${find.id}`,{
       method: "PATCH",
       headers: {
           "Content-Type": "application/json",
@@ -139,7 +151,7 @@ class App extends Component{
   .then(cartItem=>{
     this.setState(prev=>{
       let newCart =  prev.cart
-      newCart[find].quantity = quantity
+      newCart[ind].quantity = quantity
       return{
         cart: newCart
       }
@@ -149,19 +161,22 @@ class App extends Component{
   )}
    
   deleteFromCart=(item)=>{
-   //how to get the cartitemid? write fetch request to the backend, 
-   //pass item_id and user_id to find cart_item_id then send back to front end?
-   const find = Object.keys(this.state.cart).find(cartItem=>this.state.cart[cartItem].item.id===item.id)
+    let ind = 0  
+      const find= this.state.cart.find((cartItem,index)=>{
+      ind = index
+      return cartItem.item.id===item.id
+    
+    })
+  //  const find = Object.keys(this.state.cart).find(cartItem=>this.state.cart[cartItem].item.id===item.id)
 
-   fetch(`${BASEURL}/cart_items/${find}`,{
+   fetch(`${BASEURL}/cart_items/${find.id}`,{
      method: 'DELETE'
    })
 
     this.setState(prev=>{
       let newCart =  prev.cart
-      delete newCart[find]
       return{
-        cart: newCart
+        cart: [...newCart.slice(0,ind),...newCart.slice(ind+1)]
       }
       })
   }
@@ -192,7 +207,8 @@ class App extends Component{
       <Router>
           <NavBar cart={this.state.cart}/>
           <div className = "main">
-          <Route exact path="/" render={()=><Home itemShow={this.state.itemShow} onSearch ={this.handleSearch} filterBy={this.filterBy} categories={this.state.categories}/>}/>
+          <Route exact path="/" render={()=><Home itemShow={this.state.itemShow} onSearch ={this.handleSearch} addToCart={this.addToCart}
+          filterBy={this.filterBy} categories={this.state.categories}/>}/>
           <Route exact path="/items/:id" render={props=><SingleItem {...props} items={this.state.items} addToCart={this.addToCart}/>}/>
           <Route exact path="/about" component={AboutUs}/>
           <Route exact path="/cart" render={()=><Cart cart={this.state.cart} updateCart={this.updateCart} deleteFromCart={this.deleteFromCart}/>}/>
@@ -200,6 +216,7 @@ class App extends Component{
           <Route exact path="/signup" render={props => <Signup {...props} onLogin={this.login} />}/>
           <Route exact path="/login" render={props => <Login {...props} onLogin={this.login} />}/>
           <Route exact path="/checkout" render={(props)=><Checkout {...props} cart={this.state.cart} />}/>
+          <Route exact path="/placedOrder" component={<placedOrder/>}/>
          </div>
       </Router>
     )
