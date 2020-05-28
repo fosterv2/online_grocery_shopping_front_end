@@ -11,10 +11,7 @@ export default class SingleItem extends Component{
          const id= this.props.match.params.id
     
         let foundItem = {img_url:"",name:"", price:"",category:"",description:""}
-        // foundItem = items.filter(item=>item.id===id)
-
         for(let item of this.props.items){
-          
             if(item.id == id){
                return foundItem=item
             }

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import CartItemCard from '../components/CartItemCard'
 
 export default class Cart extends Component{
+    
     populateItems=()=>{
         // Object.values(this.props.cart) back to an array
       return  Object.values(this.props.cart).map((cartItem,index) => <CartItemCard key={index} cartItem={cartItem}
@@ -12,7 +13,7 @@ export default class Cart extends Component{
     calculateTotal=()=>{
         let total = 0
          Object.values(this.props.cart).map((cartItem) => total+=cartItem.item.price * cartItem.quantity)
-         return Math.round(total*100)/100
+         return total.toFixed(2)
     }
    
 render(){
