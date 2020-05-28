@@ -25,7 +25,7 @@ class App extends Component{
     // 8: {item: {category: "Produce", id: 8, img_url:"https://i.imgur.com/LWHra2y.jpg", name: "Red Bell Pepper", price: 1.38}, quantity: 5},
     // 25: {item: {category: "Dairy", id: 25, img_url: "https://i.imgur.com/JdCvsTx.jpg", name: "Milk", price: 4.49}, quantity: 1}
     },
-    currentUser: {},
+    loggedIn: !!localStorage.getItem("user_id"),
     categories:[],
     alphabetic: false,
     price: false,
@@ -48,12 +48,9 @@ class App extends Component{
     }
     )
   
-    // fetch(`${BASEURL}/cart_items/${this.state.userId}`)
-    // .then(res=>res.json())
-    // .then(console.log)
-  
-  
-  
+    fetch(`${BASEURL}/cart_items/${this.state.userId}`)
+    .then(res=>res.json())
+    .then(console.log)
   }
 
     //get user data and add to state, pass to checkout and user profile update 
@@ -167,9 +164,12 @@ class App extends Component{
   }
 
   login = user => {
-    // this.setState({ currentUser: user })
     localStorage.setItem("user_id", user.id)
+    this.setState({ loggedIn: true })
   }
+
+  signOut = () => this.setState({ loggedIn: false })
+
   handleSearch = (event) =>{
     let searchValue = event.target.value.toLowerCase()
     let values = this.state.items.filter(item => item.name.toLowerCase().includes(searchValue))
@@ -190,15 +190,47 @@ class App extends Component{
   render(){
     return(
       <Router>
-          <NavBar cart={this.state.cart}/>
+          <NavBar cart={this.state.cart} loggedIn={this.state.loggedIn} signOut={this.signOut} />
           <div className = "main">
-          <Route exact path="/" render={()=><Home itemShow={this.state.itemShow} onSearch ={this.handleSearch} filterBy={this.filterBy} categories={this.state.categories}/>}/>
-          <Route exact path="/items/:id" render={props=><SingleItem {...props} items={this.state.items} addToCart={this.addToCart}/>}/>
+          <Route exact path="/"
+              render={()=><Home
+                itemShow={this.state.itemShow}
+                onSearch ={this.handleSearch}
+                filterBy={this.filterBy}
+                categories={this.state.categories}
+                loggedIn={this.state.loggedIn}
+              />}
+          />
+          <Route exact path="/items/:id"
+              render={props=><SingleItem
+                {...props}
+                items={this.state.items}
+                addToCart={this.addToCart}
+              />}
+          />
           <Route exact path="/about" component={AboutUs}/>
-          <Route exact path="/cart" render={()=><Cart cart={this.state.cart} updateCart={this.updateCart} deleteFromCart={this.deleteFromCart}/>}/>
+          <Route exact path="/cart"
+              render={()=><Cart
+                cart={this.state.cart}
+                updateCart={this.updateCart}
+                deleteFromCart={this.deleteFromCart}
+              />}
+          />
           <Route exact path="/profile" render={() => <UserProfile user={this.state.currentUser} />}/>
-          <Route exact path="/signup" render={props => <Signup {...props} onLogin={this.login} />}/>
-          <Route exact path="/login" render={props => <Login {...props} onLogin={this.login} />}/>
+          <Route exact path="/signup"
+              render={props => <Signup
+                {...props}
+                onLogin={this.login}
+                loggedIn={this.state.loggedIn}
+              />}
+          />
+          <Route exact path="/login"
+              render={props => <Login
+                {...props}
+                onLogin={this.login}
+                loggedIn={this.state.loggedIn}
+              />}
+          />
           <Route exact path="/checkout" render={(props)=><Checkout {...props} cart={this.state.cart} />}/>
          </div>
       </Router>

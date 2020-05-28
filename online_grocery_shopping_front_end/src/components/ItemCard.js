@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from "react-router-dom";
 
 const ItemCard = (props) => {
-    const { info } = props
+    const { info, loggedIn } = props
     return (
         <div className="item card">
          
@@ -24,10 +24,10 @@ const ItemCard = (props) => {
                     </div>
                 </div>
             </div>
-           
+            {!loggedIn ? null :
             <div className="buy">
                 <button onClick={() => console.log("the event listener to buy an item")}>Add to cart</button>
-            </div>
+            </div>}
         </div>
     )
 }
