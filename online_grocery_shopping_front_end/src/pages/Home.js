@@ -3,7 +3,7 @@ import Filter from '../components/Filter'
 import Sort from '../components/Sort'
 import SearchForm from '../components/SearchForm.js'
 import ItemBrowser from '../components/ItemBrowser';
-import Sidebar from "react-sidebar";
+// import Sidebar from "react-sidebar";
 
 export default class Home extends Component{
     state={
