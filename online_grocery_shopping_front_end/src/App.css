@@ -145,12 +145,12 @@
 .CartItemCard .changeQty .minus,
 .CartItemCard .changeQty .plus{
   /* padding: 5px 8px 6px; */
-  height: 22px;
-  background-color: #ffffff;
-  color: #333;
+  height: 30px;
+  background-color: green;
+  color: white;
   border: 1px solid #efefef;
-  cursor:pointer;
- 
+  cursor: pointer;
+  margin: 5px;
 }
 
 .SingleItemDisplay .minus:hover,
@@ -161,11 +161,12 @@
 }
 .CartItemCard .changeQty .input-text.qty{
   width: 35px;
-  height: 18px;
+  height: 22px;
   padding: 1 5px;
   text-align: center;
   background-color: transparent;
-  border: 1px solid #efefef;
+  border: 1px solid green;
+  margin-left: 8px;
 }
 
 .SingleItemDisplay .input-text.qty{
@@ -194,26 +195,81 @@
 /* cart item style */
 .CartItemCard {
   /* border-top:    1px groove grey; */
-
-  border-bottom: 3px groove lightgray;
- 
+  display: flex;
+  /* justify-content: space-around; */
+  flex-direction: column;
+  height: 260px;
+  padding-bottom: 10px;
+  align-items: center;
+  border-bottom: 3px groove green;
 }
 
 .CartItemCard .image {
   width: 100px;
   height: 100px;
-  margin-top: 20px;
-  margin-bottom: 5px;
+  /* margin-top: 20px; */
+  margin-bottom: 35px;
 }
 .CartItemCard .price{
   text-align: right;
+  margin-bottom: 10px;
 }
 .CartItemCard .delete{
   text-align: center;
+  margin: 15px;
+  /* margin: 200px -50px;  */
+    /* position:relative;
+    top:50%; 
+    left:50%; */
 
 }
-.CartItemCard .name {
+
+.CartItemCard button {
+  background-color: green;
+  color: white;
+  font-size: 20px;
+  border-radius: 5px;
+}
+
+.name {
   text-align: center;
+  margin-top: 10px;
+}
+
+.CartItemCard {
+  display: flex;
+  /* justify-content: space-around; */
+  flex-direction: column;
+  height: 250px;
+  align-items: center;
+}
+
+.total{
+  text-align: center;
+  align-items: center;
+  margin: 20px;
+}
+
+.checkoutBtn{
+  background-color: green;
+  color: white;
+  font-size: 20px;
+  border-radius: 5px;
+} 
+
+/* style CheckoutItemCard */
+.checkOutItems .priceAndQty{
+  text-align: right;
+}
+
+.checkOutItems .name{
+  text-align: right;
+}
+.checkOutItems .image {
+  width: 100px;
+  height: 100px;
+  margin-top: 20px;
+  margin-bottom: 5px;
 }
 
 .checkout{

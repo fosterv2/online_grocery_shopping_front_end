@@ -52,12 +52,13 @@ export default class SingleItem extends Component{
                 <h3>{category}</h3>
                 <h3>{price}</h3>
                 <p>{description}</p>
-                
+                {!this.props.loggedIn ? null :
+                <div>
                 <button className="minus" onClick={this.DecreaseItem}>-</button>
                 <input type="number" onChange={this.handleOnChange} min="1" name="quantity" value={this.state.quantity} className="input-text qty text" size="4"/>
                 <button className="plus" onClick={this.IncrementItem}>+</button>
                 <button onClick={this.handleAddToCart}>Add to cart</button>
-
+                </div>}
             </div>
         )
     }

@@ -31,11 +31,12 @@ const handleDelete=()=>{
    return deleteFromCart(item)
 }
  return(
-     <div className="CartItemCard">
+     <div>
 
-         <div className="name">
-         <strong>{item.name}</strong>
-         </div>
+     <div className="name">
+     <strong>{item.name}</strong>
+     </div>
+     <div className="CartItemCard">
             <div className="image">
          <img src={item.img_url} alt={item.name}/>
          </div>
@@ -50,6 +51,7 @@ const handleDelete=()=>{
     <div className="delete">
         <button onClick={handleDelete}>Delete</button>
         </div>
+     </div>
      </div>
  )
 }

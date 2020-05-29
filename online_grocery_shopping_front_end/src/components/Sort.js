@@ -9,7 +9,7 @@ const Sort = props =>{
     }
     return (
     <form className ="Sort">
-    <label for="sorts">Choose a sort: </label>
+    <label htmlFor="sorts">Choose a sort: </label>
     <select onClick ={ handleSort}>
     <option value="None">None</option>
     <option value="AlphaABC">Alphabetic: ABC</option>

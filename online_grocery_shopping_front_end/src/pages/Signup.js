@@ -119,10 +119,16 @@ export default class Signup extends Component {
                     </div> */}
                     <div className="form button">
                         <button type="submit">
-                            Login
+                            Sign Up
                         </button>
                     </div>
                 </form>
+                <div className="toggle button">
+                    <h2>or</h2>
+                    <button type="submit" onClick={() => this.props.history.push("/login")}>
+                        Login
+                    </button>
+                </div>
             </div>
         )
     }    
