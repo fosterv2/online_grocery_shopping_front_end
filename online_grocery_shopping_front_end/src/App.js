@@ -53,11 +53,11 @@ class App extends Component{
   }
 
   fetchCartItems = () => {
-    fetch(`${BASEURL}/cart_items/${localStorage.getItem("user_id")}`)
+    fetch(`${BASEURL}/cart_items/${this.state.userId}`)
     .then(res=>res.json())
     .then(data=>{
       this.setState({
-        cart:data
+        cart: data
       })
     })
   }
@@ -185,11 +185,19 @@ class App extends Component{
 
   login = user => {
     localStorage.setItem("user_id", user.id)
+    this.setState({
+      loggedIn: true,
+      userId: localStorage.getItem("user_id")
+    })
     this.fetchCartItems()
-    this.setState({ loggedIn: true })
   }
 
-  signOut = () => this.setState({ loggedIn: false })
+  signOut = () => {
+    this.setState({
+      loggedIn: false,
+      cart: []
+    })
+  }
 
   handleSearch = (event) =>{
     let searchValue = event.target.value.toLowerCase()
@@ -228,6 +236,7 @@ class App extends Component{
                 {...props}
                 items={this.state.items}
                 addToCart={this.addToCart}
+                loggedIn={this.state.loggedIn}
               />}
           />
           <Route exact path="/about" component={AboutUs}/>
