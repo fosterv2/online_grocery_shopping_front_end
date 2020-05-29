@@ -1,12 +1,21 @@
 import React from 'react';
 
-const Filter=()=>{
-return(
-    <div className="filterBar">
-        <p>Dairy</p>
-        <p>Fruits</p>
-    </div>
-)
+const Filter=({categories,filterBy})=>{
+
+    const handleClick=(event)=>{
+        // debugger
+        filterBy(event.target.innerText)
+    }
+   const populateCategory=()=>{
+    return categories.map((category,index)=><p className ="filter-rectangle" key={index} onClick={handleClick}>
+        {category}</p>)
+    }
+    return(
+        <div className="filterBar">
+            <p onClick={handleClick}>All</p>
+        {populateCategory()}
+        </div>
+    )
 }
 
 export default Filter

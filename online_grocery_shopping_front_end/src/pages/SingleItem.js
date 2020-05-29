@@ -6,12 +6,14 @@ export default class SingleItem extends Component{
         quantity:1
     }
 
-    getItem=()=>{
-        const id= this.props.match.params.id
+    getItem = () =>{
+           
+         const id= this.props.match.params.id
+    
         let foundItem = {img_url:"",name:"", price:"",category:"",description:""}
         for(let item of this.props.items){
-            if(item.id === id){
-                foundItem=item
+            if(item.id == id){
+               return foundItem=item
             }
         }
         return foundItem

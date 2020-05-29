@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import Filter from '../components/Filter'
 import SearchForm from '../components/SearchForm.js'
-import SingleItem from './SingleItem.js'
 import ItemBrowser from '../components/ItemBrowser';
 import Sort from '../components/Sort'
+// import Sidebar from "react-sidebar";
 
 export default class Home extends Component{
     state={
@@ -27,8 +27,10 @@ export default class Home extends Component{
       //   // }
       // }
 
+    
+
 render(){
-  const {itemShow} = this.props
+    const {itemShow,categories,filterBy} = this.props
     return(
       <Fragment>
         <Sort onSort ={this.props.onSort} data={this.state}/>
@@ -38,10 +40,10 @@ render(){
             <div className="bar2"></div>
             <div className="bar3"></div>
         </div>
-            {this.state.showFilter? <Filter />:""}
+        {this.state.showFilter? <Filter categories={categories} filterBy={filterBy}/>:""}
               <SearchForm onSearch ={this.props.onSearch}/>
               <ItemBrowser items={itemShow} /> 
-              {/* changeditem to itemShow */}
+              {/* changed item to itemShow */}
               
         </div>
         
@@ -49,3 +51,12 @@ render(){
     )
 }
 }    
+
+
+
+
+
+
+
+
+

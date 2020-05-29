@@ -11,6 +11,7 @@ import Login from './pages/Login'
 import Home from './pages/Home'
 import SingleItem from './pages/SingleItem'
 import Signup from './pages/Signup';
+import Checkout from './pages/Checkout'
 
 
 const BASEURL = "http://localhost:3000"
@@ -21,109 +22,169 @@ class App extends Component{
     items: [],
     itemShow: [],
     cart:{
-      2:{item: {category: "Snacks", id: 2, img_url: "https://i.imgur.com/a1cLXfi.jpg", name: "Wheat Thins", price: 3.44}, quantity: 4},
-    8: {item: {category: "Produce", id: 8, img_url:"https://i.imgur.com/LWHra2y.jpg", name: "Red Bell Pepper", price: 1.38}, quantity: 5},
-    25: {item: {category: "Dairy", id: 25, img_url: "https://i.imgur.com/JdCvsTx.jpg", name: "Milk", price: 4.49}, quantity: 1}
+    //   2:{item: {category: "Snacks", id: 2, img_url: "https://i.imgur.com/a1cLXfi.jpg", name: "Wheat Thins", price: 3.44}, quantity: 4},
+    // 8: {item: {category: "Produce", id: 8, img_url:"https://i.imgur.com/LWHra2y.jpg", name: "Red Bell Pepper", price: 1.38}, quantity: 5},
+    // 25: {item: {category: "Dairy", id: 25, img_url: "https://i.imgur.com/JdCvsTx.jpg", name: "Milk", price: 4.49}, quantity: 1}
     },
     currentUser: {},
-    sortItem: []
+    sortItem: [],
+    categories:[],
+    userId: localStorage.getItem("user_id")
     // items gathers all items, itemShow is what is getting displayed
   }
 
-  handleSearch = (event) =>{
-    let searchValue = event.target.value.toLowerCase()
-    let values = this.state.items.filter(item => item.name.toLowerCase().includes(searchValue))
-    console.log(values)
-    this.setState({itemShow:values})
-  }
+ 
   componentDidMount(){
     fetch(URL)
     .then(res => res.json())
     .then(data =>{
-      this.setState({items: data, itemShow: data})})
+      // let ca = 
+      this.setState({
+        items: data,
+        itemShow: data,
+        //get unique category
+        categories:data.map(item=>item.category).filter((value,index,self)=>{return self.indexOf(value) ===index})
+      })
     }
+    )
+  
+    // fetch(`${BASEURL}/cart_items/${this.state.userId}`)
+    // .then(res=>res.json())
+    // .then(console.log)
+  
+  
+  
+  }
+
+    //get user data and add to state, pass to checkout and user profile update 
+  //   componentDidMount(){
+  //     fetch(`BASEURL/users/${userId}`)
+  //     .then(res=>res.json())
+  //     .then(data=> data)
+  // }
+  
+   
     //increment Qty
     handleSort =(event) =>{
       let newItems = [...this.state.items]
       let priceItems = [...this.state.items]
-let arrayABC = newItems.sort((a, b) => (a.name > b.name) ? 1 : (a.name === b.name) ? ((a.size > b.size) ? 1 : -1) : -1 )
-let arrayZYX = [...arrayABC].reverse()
-let arrayLH = priceItems.sort((a, b) => (a.price > b.price) ? 1 : (a.price === b.price) ? ((a.size > b.size) ? 1 : -1) : -1 )
-let arrayHL = [...arrayLH].reverse()
-// if(event.target.value === 'AlphaABC'){
-//   this.setState({itemShow: arrayABC})
-//   console.log(arrayABC)
-
-switch (event.target.value) {
-  case "None":
-  this.setState({itemShow: this.state.items})
-  break;
-  case "AlphaABC":
-    this.setState({itemShow: arrayABC})
-    break;
-  case "AlphaZYX":
-    this.setState({itemShow: arrayZYX})
-    break;
-  case "PriceHL":
-    this.setState({itemShow: arrayHL})
-    break;
-  case "PriceLH":
-    this.setState({itemShow: arrayLH})
-    break;
+      let arrayABC = newItems.sort((a, b) => (a.name > b.name) ? 1 : (a.name === b.name) ? ((a.size > b.size) ? 1 : -1) : -1 )
+      let arrayZYX = [...arrayABC].reverse()
+      let arrayLH = priceItems.sort((a, b) => (a.price > b.price) ? 1 : (a.price === b.price) ? ((a.size > b.size) ? 1 : -1) : -1 )
+      let arrayHL = [...arrayLH].reverse()
+      switch (event.target.value) {
+      case "None":
+      this.setState({itemShow: this.state.items})
+      break;
+      case "AlphaABC":
+      this.setState({itemShow: arrayABC})
+      break;
+      case "AlphaZYX":
+      this.setState({itemShow: arrayZYX})
+      break;
+      case "PriceHL":
+      this.setState({itemShow: arrayHL})
+      break;
+      case "PriceLH":
+      this.setState({itemShow: arrayLH})
+      break;
     }
   }
   addToCart=(item,quantity)=>{
 
-  //   fetch(`${BASEURL}/cart_items`,{
-  //     method: "POST",
-  //     headers: {
-  //         "Content-Type": "application/json",
-  //         Accept: "application/json"
-  //     },
-  //     body: JSON.stringify({
-  //         user_id: 1,
-  //         item_id: item.id,
-  //         quantity:quantity
-  //     })
-  // })
-  // .then(res => res.json())
-  // .then(json =>  { this.setState(prev=>{
-  //   return {cart:[...prev.cart,{item: item,quantity:quantity}]}
-  //   })}
-  //   )
-    let itemAndQty={[item.id]:{item: item,quantity:quantity}}
-    if(this.state.cart[item.id]){
-      // modify the quantity
-      this.setState(prev=>{
-      let newCart =  prev.cart
-      newCart[item.id].quantity += quantity
-      return{
-        cart: newCart
+   const find = Object.keys(this.state.cart).find(cartItem=>this.state.cart[cartItem].item.id===item.id)
+    
+    
+    if(!find){
+   fetch(`${BASEURL}/cart_items`,{
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+      },
+      body: JSON.stringify({
+          user_id: this.state.userId,
+          item_id: item.id,
+          quantity:quantity
+      })
+  })
+  .then(res => res.json())
+  .then(cartItem =>  {
+
+// console.log(cartItem.id)
+    let itemAndQty={[cartItem.id]:{item: item,quantity:quantity}}
+    this.setState({
+      cart:{
+        ...this.state.cart,
+        ...itemAndQty
       }
-      })
+    })
+  }
+    )
     }else{
-      this.setState({
-        cart:{
-          ...this.state.cart,
-          ...itemAndQty
+      
+      fetch(`${BASEURL}/cart_items/${find}`,{
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json"
+        },
+        body: JSON.stringify({
+            quantity:this.state.cart[find].quantity+quantity
+        })
+    })
+    .then(res => res.json())
+    .then(cartItem=>{
+
+      this.setState(prev=>{
+        let newCart =  prev.cart
+        newCart[find].quantity += quantity
+        return{
+          cart: newCart
         }
-      })
+        })
+     })
     }
   }
-  //replace old Qty with new Qty
+  // replace old Qty with new Qty
   updateCart=(item,quantity)=>{
+    const find = Object.keys(this.state.cart).find(cartItem=>this.state.cart[cartItem].item.id===item.id)
+
+    fetch(`${BASEURL}/cart_items/${find}`,{
+      method: "PATCH",
+      headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+      },
+      body: JSON.stringify({
+          quantity:quantity
+      })
+  })
+  .then(res => res.json())
+  .then(cartItem=>{
     this.setState(prev=>{
       let newCart =  prev.cart
-      newCart[item.id].quantity = quantity
+      newCart[find].quantity = quantity
       return{
         cart: newCart
       }
       })
   }
+    
+  )}
+   
   deleteFromCart=(item)=>{
+   //how to get the cartitemid? write fetch request to the backend, 
+   //pass item_id and user_id to find cart_item_id then send back to front end?
+   const find = Object.keys(this.state.cart).find(cartItem=>this.state.cart[cartItem].item.id===item.id)
+
+   fetch(`${BASEURL}/cart_items/${find}`,{
+     method: 'DELETE'
+   })
+
     this.setState(prev=>{
       let newCart =  prev.cart
-      delete newCart[item.id]
+      delete newCart[find]
       return{
         cart: newCart
       }
@@ -131,22 +192,39 @@ switch (event.target.value) {
   }
 
   login = user => {
-    this.setState({ currentUser: user })
+    // this.setState({ currentUser: user })
     localStorage.setItem("user_id", user.id)
   }
+  handleSearch = (event) =>{
+    let searchValue = event.target.value.toLowerCase()
+    let values = this.state.items.filter(item => item.name.toLowerCase().includes(searchValue))
+    // console.log(values)
+    this.setState({itemShow:values})
+  }
+  filterBy=(category)=>{
+    let values=[]
+    if(category!=="All"){
+     values = this.state.items.filter(item => item.category===category)}
+    else{
+     values = this.state.items
+    }
+  
+    this.setState({itemShow:values})
 
+  }
   render(){
     return(
       <Router>
-          <NavBar/>
+          <NavBar cart={this.state.cart}/>
           <div className = "main">
-          <Route exact path="/" render={()=><Home itemShow={this.state.itemShow} onSearch ={this.handleSearch} onSort ={this.handleSort}/>}/>
-          <Route exact path="/items/:id" render={(props)=><SingleItem {...props} items={this.state.items} addToCart={this.addToCart}/>}/>
+          <Route exact path="/" render={()=><Home itemShow={this.state.itemShow} onSearch ={this.handleSearch} onSort ={this.handleSort} filterBy={this.filterBy} categories={this.state.categories}/>}/>
+          <Route exact path="/items/:id" render={props=><SingleItem {...props} items={this.state.items} addToCart={this.addToCart}/>}/>          
           <Route exact path="/about" component={AboutUs}/>
           <Route exact path="/cart" render={()=><Cart cart={this.state.cart} updateCart={this.updateCart} deleteFromCart={this.deleteFromCart}/>}/>
-          <Route exact path="/profile" component={UserProfile}/>
+          <Route exact path="/profile" render={() => <UserProfile user={this.state.currentUser} />}/>
           <Route exact path="/signup" render={props => <Signup {...props} onLogin={this.login} />}/>
           <Route exact path="/login" render={props => <Login {...props} onLogin={this.login} />}/>
+          <Route exact path="/checkout" render={(props)=><Checkout {...props} cart={this.state.cart} />}/>
          </div>
       </Router>
     )

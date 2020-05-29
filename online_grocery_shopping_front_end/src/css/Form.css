@@ -18,15 +18,20 @@ input, textarea {
 }
 
 input:focus {
-    border: 3px solid black;
+    border: 3px solid darkgreen;
 }
 
 textarea {
     height: 60px;
 }
 
-button {
-    background-color: gray;
+.form.button button:hover {
+    background-color: #0aad12;
+}
+
+.form.button button {
+    width: 243px;
+    background-color: green;
     font-size: 20px;
     border-radius: 5px;
     color: white;
@@ -35,7 +40,7 @@ button {
 }
 
 button:hover {
-    background-color: #606060;
+    background-color: #0aad12;
 }
 
 .form.button button {

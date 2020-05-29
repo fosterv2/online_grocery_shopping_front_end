@@ -5,18 +5,22 @@
 /* Filter Btn Style */
 .filterContainer {
   cursor: pointer;
-  float: left;
- 
+  float: left; 
+}
+.filter-rectangle{
+  border-style:solid;
+  border-color: green;
+  margin-right: 1100px;
 }
 
 .bar1, .bar2, .bar3 {
-  width: 35px;
-  height: 5px;
+  width: 30px;
+  height: 3px;
   background-color: black;
   margin: 6px 0;
   transition: 0.4s;
 }
-.change{
+/* .change{
   cursor: pointer;
   float: left;
 }
@@ -30,11 +34,11 @@
 .change .bar3 {
   -webkit-transform: rotate(45deg) translate(-8px, -8px);
   transform: rotate(45deg) translate(-8px, -8px);
-}
+} */
  /* NavBar Style */
 .navbar {
   overflow: hidden;
-  background-color: #333;
+  background-color: darkgreen;
   position: fixed;
   top: 0;
   width: 100%;
@@ -51,7 +55,7 @@
 }
 
 .navbar a:hover {
-  background: #ddd;
+  background: yellow;
   color: black;
 }  
 /* main */
@@ -133,7 +137,7 @@
 .SingleItemDisplay .plus{
   padding: 7px 10px 8px;
   height: 41px;
-  background-color: #ffffff;
+  background-color: grey;
   border: 1px solid #efefef;
   cursor:pointer;
 }
@@ -143,6 +147,7 @@
   /* padding: 5px 8px 6px; */
   height: 22px;
   background-color: #ffffff;
+  color: #333;
   border: 1px solid #efefef;
   cursor:pointer;
  
@@ -209,4 +214,8 @@
 }
 .CartItemCard .name {
   text-align: center;
+}
+
+.checkout{
+  background-color: green;
 }
