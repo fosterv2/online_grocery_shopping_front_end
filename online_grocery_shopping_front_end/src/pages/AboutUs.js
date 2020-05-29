@@ -14,6 +14,7 @@ render(){
         <img
             style={{display: "block", marginLeft: "auto", marginRight: "auto"}}
             src="https://i.imgur.com/s74tASH.jpg"
+            alt="logo"
         />
         <ul style={{position: "fixed", bottom: "0"}}>
         <h2 style={{textAlign: "left"}}>Created By:</h2>
@@ -44,5 +45,5 @@ render(){
         </ul>
     </div>
     )
-}    
+}
 }

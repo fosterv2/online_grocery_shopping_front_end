@@ -5,8 +5,12 @@
 /* Filter Btn Style */
 .filterContainer {
   cursor: pointer;
-  float: left;
- 
+  float: left; 
+}
+.filter-rectangle{
+  border-style:solid;
+  border-color: green;
+  margin-right: 1100px;
 }
 
 .bar1, .bar2, .bar3 {
@@ -34,7 +38,7 @@
  /* NavBar Style */
 .navbar {
   overflow: hidden;
-  background-color: #333;
+  background-color: darkgreen;
   position: fixed;
   top: 0;
   width: 100%;
@@ -51,7 +55,7 @@
 }
 
 .navbar a:hover {
-  background: #ddd;
+  background: yellow;
   color: black;
 }  
 /* main */
