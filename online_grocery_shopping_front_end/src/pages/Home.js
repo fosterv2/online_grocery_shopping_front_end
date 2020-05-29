@@ -30,7 +30,7 @@ export default class Home extends Component{
     
 
 render(){
-    const {itemShow,categories,filterBy,addToCart} = this.props
+    const {itemShow,categories,filterBy,addToCart,loggedIn} = this.props
     return(
       <Fragment>
         <Sort onSort ={this.handleCheckbox} data={this.state}/>
@@ -41,8 +41,8 @@ render(){
             <div className="bar3"></div>
         </div>
         {this.state.showFilter? <Filter categories={categories} filterBy={filterBy}/>:""}
-              <SearchForm onSearch ={this.props.onSearch}/>
-              <ItemBrowser items={itemShow} addToCart={addToCart}/> 
+              <SearchForm onSearch ={this.props.onSearch} />
+              <ItemBrowser items={itemShow} addToCart={addToCart} loggedIn={loggedIn} /> 
               {/* changed item to itemShow */}
               
         </div>
