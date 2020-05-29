@@ -52,15 +52,8 @@ class App extends Component{
     )
     if(this.state.loggedIn) {
       this.fetchCartItems()
+      this.fetchCurrentUser()
     }
-
-  
-    fetch(`${BASEURL}/users/${this.state.userId}`)
-    .then(resp => resp.json())
-    .then(user => {
-      this.setState({ currentUser: user})
-    })
-  
   }
 
   fetchCartItems = () => {
@@ -70,6 +63,14 @@ class App extends Component{
       this.setState({
         cart: data
       })
+    })
+  }
+
+  fetchCurrentUser = () => {
+    fetch(`${BASEURL}/users/${this.state.userId}`)
+    .then(resp => resp.json())
+    .then(user => {
+      this.setState({ currentUser: user})
     })
   }
 
@@ -201,12 +202,14 @@ class App extends Component{
       userId: localStorage.getItem("user_id")
     })
     this.fetchCartItems()
+    this.fetchCurrentUser()
   }
 
   signOut = () => {
     this.setState({
       loggedIn: false,
-      cart: []
+      cart: [],
+      currentUser: {}
     })
   }
 
