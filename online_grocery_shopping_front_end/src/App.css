@@ -129,15 +129,16 @@
   margin-bottom: 5px;
 }
 /* increment, decrease, change quantity button style */
-.SingleItemDisplay .minus,
+/* .SingleItemDisplay .minus,
 .SingleItemDisplay .plus{
   padding: 7px 10px 8px;
   height: 41px;
   background-color: grey;
   border: 1px solid #efefef;
   cursor:pointer;
-}
-
+} */
+.SingleItemDisplay .minus,
+.SingleItemDisplay .plus,
 .CartItemCard .changeQty .minus,
 .CartItemCard .changeQty .plus{
   /* padding: 5px 8px 6px; */
@@ -167,11 +168,12 @@
 
 .SingleItemDisplay .input-text.qty{
   width: 35px;
-  height: 39px;
-  padding: 0 5px;
+  height: 22px;
+  padding: 1 5px;
   text-align: center;
   background-color: transparent;
-  border: 1px solid #efefef;
+  border: 1px solid green;
+  margin-left: 8px;
 }
 .SingleItemDisplay input,
 .input-text.qty input{
