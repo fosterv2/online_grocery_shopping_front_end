@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-const URL = "http://localhost:3000/users"
-
 export default class UserProfile extends Component {
     state = {
         fields: {
@@ -14,9 +12,8 @@ export default class UserProfile extends Component {
         }
     }
 
-
     componentDidMount() {
-            this.setState({ fields: this.props.currentUser, updated:false })
+        this.setState({ fields: this.props.currentUser, updated:false })
     }
    
     handleChange = event => {
@@ -26,7 +23,8 @@ export default class UserProfile extends Component {
 
     handleSubmit = event => {
         event.preventDefault()
-      this.props.userUpdate(this.state.fields)
+        this.props.userUpdate(this.state.fields)
+        this.props.history.push("/")
     }
 
     render() {

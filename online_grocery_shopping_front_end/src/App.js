@@ -332,7 +332,13 @@ class App extends Component{
                 deleteFromCart={this.deleteFromCart}
               />}
           />
-          <Route exact path="/profile" render={() => <UserProfile currentUser={this.state.currentUser} userUpdate={this.userUpdate} />}/>
+          <Route exact path="/profile"
+              render={props => <UserProfile
+                {...props}
+                currentUser={this.state.currentUser}
+                userUpdate={this.userUpdate}
+              />}
+          />
           <Route exact path="/signup"
               render={props => <Signup
                 {...props}
@@ -347,7 +353,14 @@ class App extends Component{
                 loggedIn={this.state.loggedIn}
               />}
           />
-          <Route exact path="/checkout" render={(props)=><Checkout {...props} cart={this.state.cart} currentUser={this.state.currentUser} updateWallet={this.updateWallet}/>}/>
+          <Route exact path="/checkout"
+              render={(props)=><Checkout
+                {...props}
+                cart={this.state.cart}
+                currentUser={this.state.currentUser}
+                updateWallet={this.updateWallet}
+              />}
+          />
           {/* <Route exact path="/placedOrder" component={<PlacedOrder/>}/> */}
          </div>
       </Router>
