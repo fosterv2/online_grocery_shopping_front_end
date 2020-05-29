@@ -36,10 +36,6 @@ class App extends Component{
     // items gathers all items, itemShow is what is getting displayed
   }
 
-
-componentDidMount() {
-   
-}
   componentDidMount(){
     fetch(URL)
     .then(res => res.json())
