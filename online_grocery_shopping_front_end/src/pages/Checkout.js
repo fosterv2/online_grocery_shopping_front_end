@@ -60,10 +60,10 @@ render(){
         </div>
         </div>
         <form className ="Checkout" onSubmit={this.handleSubmit}>
-        <label for="name">Name</label><br/>
+        <label htmlFor="name">Name</label><br/>
          <input type="text" id="name" name="name" value={this.state.name} onChange={this.handleChange}/><br/>
 
-        <label for="address"> Address: </label><br/>
+        <label htmlFor="address"> Address: </label><br/>
         <input id="address" type ="text" name ="address" value={this.state.address}   onChange={this.handleChange}/><br/>
         <p>Wallet: {Math.round(this.props.currentUser.wallet*100)/100}</p>
         <button className="addMoney">Add more money</button><br/>
