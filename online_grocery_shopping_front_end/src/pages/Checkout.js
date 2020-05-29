@@ -60,10 +60,11 @@ render(){
         </div>
         </div>
         <form className ="Checkout" onSubmit={this.handleSubmit}>
-        <label> Name: </label>
-        <input type ="text" name="name" value={this.state.name} onChange={this.handleChange}/><br/>
-        <label> Address: </label>
-        <input type ="text" name ="address" value={this.state.address}   onChange={this.handleChange}/><br/>
+        <label for="name">Name</label><br/>
+         <input type="text" id="name" name="name" value={this.state.name} onChange={this.handleChange}/><br/>
+
+        <label for="address"> Address: </label><br/>
+        <input id="address" type ="text" name ="address" value={this.state.address}   onChange={this.handleChange}/><br/>
         <p>Wallet: {Math.round(this.props.currentUser.wallet*100)/100}</p>
         <button className="addMoney">Add more money</button><br/>
         {/* <Link to={"/placedOrder"}> */}
@@ -79,3 +80,42 @@ render(){
 }    
 }
 export default Checkout
+
+
+
+
+
+// render(){
+    
+//     return(
+//      <>
+//       {this.state.placedOrder?
+//         <>
+//       <div className="checkoutItems" >
+//         {this.populateItems()}
+//     <div className="total">
+//         <strong>Total: {this.state.total}</strong>
+//         </div>
+//         </div>
+//         <form className ="Checkout" onSubmit={this.handleSubmit}>
+
+            
+//         <label for="name"> Name: </label>
+//         <input type ="text" id= "name" name="name" value={this.state.name} onChange={this.handleChange}/><br/>
+//         <label> Address: </label>
+//         <input type ="text" name ="address" value={this.state.address}   onChange={this.handleChange}/><br/>
+//         <p>Wallet: {Math.round(this.props.currentUser.wallet*100)/100}</p>
+//         <button className="addMoney">Add more money</button><br/>
+//         {/* <Link to={"/placedOrder"}> */}
+//         <input type="submit" value="Place Order" />
+//         {/* </Link> */}
+//         </form>
+//         </>
+//        :
+//        <h1>Thank you for shopping with us! We will start on prepare your order ASAP.
+//         Shipping takes estimated 2-3 days.</h1>}
+//       </>
+//     )
+// }    
+// }
+// export default Checkout
