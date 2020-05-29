@@ -1,10 +1,6 @@
 # NotSoFresh Online Grocery Shopping App
 
-A mock online grocery shopping application (in no way inspired by Amazon Fresh).
-- A user can login to the app with some user information that gets stored to the database
-- A user can look at all of the grocery items from the backend database and choose which ones to "buy"
-- A user can add and remove items to their cart and then "pay" for their order
-
+The front-end of a mock online grocery shopping application (in no way inspired by Amazon Fresh).
 [Link to Backend Repo](https://github.com/fosterv2/online-grocery-shopping-backend)
 
 ## Getting Started
@@ -19,7 +15,7 @@ To run this project you have to have rails installed on your computer
 
 #### back-end
 
-To get the back-end running, you should run all of these commands in the backend folder
+To get the back-end running, you should run all of these commands in the back-end folder
 
 ```
 rails db:create"
@@ -38,7 +34,7 @@ npm install react-router-dom
 npm start
 ```
 
-### `In the App`
+### In the App
 
 Before login/ signup, you can see the "about us", "home", "login/signup" page, you can sort, filter and search the items. You can click on each item image to see the item details. 
 
@@ -48,4 +44,4 @@ You can click on Cart on the NavBar to checkout or adjust items in the cart. Aft
 
 You can also change user data in profile page.
 
-If you log out, and log back in. The items in the cart before will still stay in the cart till you checkout.
+The items in the cart are unique to the user. If you log out, and log back in, the items in the cart before will still stay in the cart till you checkout.
