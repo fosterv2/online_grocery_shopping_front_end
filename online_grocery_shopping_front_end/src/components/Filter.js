@@ -7,7 +7,7 @@ const Filter=({categories,filterBy})=>{
         filterBy(event.target.innerText)
     }
    const populateCategory=()=>{
-    return categories.map((category,index)=><p key={index} onClick={handleClick}>
+    return categories.map((category,index)=><p className ="filter-rectangle" key={index} onClick={handleClick}>
         {category}</p>)
     }
     return(

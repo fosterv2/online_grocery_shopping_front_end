@@ -18,7 +18,7 @@ input, textarea {
 }
 
 input:focus {
-    border: 3px solid black;
+    border: 3px solid darkgreen;
 }
 
 textarea {
@@ -26,12 +26,12 @@ textarea {
 }
 
 .form.button button:hover {
-    background-color: #606060;
+    background-color: #0aad12;
 }
 
 .form.button button {
     width: 243px;
-    background-color: gray;
+    background-color: green;
     font-size: 20px;
     border-radius: 5px;
     color: white;
@@ -40,7 +40,7 @@ textarea {
 }
 
 button:hover {
-    background-color: #606060;
+    background-color: #0aad12;
 }
 
 .form.button button {
@@ -48,7 +48,8 @@ button:hover {
 }
 
 .Sort{
-    margin-left: 200px;
+    margin-top: 20px;
+    margin-left: 1000px;
     border: 100px;
 }
 
