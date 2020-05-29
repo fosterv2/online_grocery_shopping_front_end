@@ -1,11 +1,10 @@
 # NotSoFresh Online Grocery Shopping App
 
 The front-end of a mock online grocery shopping application (in no way inspired by Amazon Fresh).
-[Link to Back-End Repo](https://github.com/fosterv2/online-grocery-shopping-backend)
 
 ## Getting Started
 
-To use this app you should fork and clone this repository and the the backend repository
+To use this app you should fork and clone this repository and the the [back-end repository](https://github.com/fosterv2/online-grocery-shopping-backend)
 
 ### Prerequisites
 
