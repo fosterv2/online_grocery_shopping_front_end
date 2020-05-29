@@ -9,9 +9,7 @@ export default class NavBar extends Component{
     numberOfItems=()=>{
         const {cart} = this.props
         let num = 0
-        cart.forEach(item=>{
-            num += item.quantity
-        })
+         cart.forEach(item=>{num += item.quantity})
     return num
     }
 

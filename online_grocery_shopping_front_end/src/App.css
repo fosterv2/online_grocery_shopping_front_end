@@ -189,6 +189,7 @@
   margin: 0;
 }
 /* cart item style */
+.checkOutItems,
 .CartItemCard {
   /* border-top:    1px groove grey; */
   display: flex;
@@ -206,9 +207,20 @@
   /* margin-top: 20px; */
   margin-bottom: 35px;
 }
+.checkOutItems .image{
+  width: 100px;
+  height: 100px;
+  /* margin-top: 20px; */
+  margin-bottom: 50px;
+}
 .CartItemCard .price{
   text-align: right;
   margin-bottom: 10px;
+}
+.checkOutItems .priceAndQty,
+.priceAndQty .total{
+  text-align: center;
+  margin-top: 30px;
 }
 .CartItemCard .delete{
   text-align: center;
@@ -226,12 +238,12 @@
   font-size: 20px;
   border-radius: 5px;
 }
-
+.checkOutItems .name,
 .name {
   text-align: center;
   margin-top: 10px;
 }
-
+.checkOutItems,
 .CartItemCard {
   display: flex;
   /* justify-content: space-around; */
