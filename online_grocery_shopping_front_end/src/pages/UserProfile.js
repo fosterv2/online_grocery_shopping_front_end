@@ -14,15 +14,11 @@ export default class UserProfile extends Component {
         }
     }
 
-    componentDidMount() {
-        const userId = localStorage.user_id
-        fetch(`${URL}/${userId}`)
-        .then(resp => resp.json())
-        .then(user => {
-            this.setState({ fields: user })
-        })
-    }
 
+    componentDidMount() {
+            this.setState({ fields: this.props.currentUser, updated:false })
+    }
+   
     handleChange = event => {
         const newFields = {...this.state.fields, [event.target.name]: event.target.value}
         this.setState({ fields: newFields })
@@ -30,21 +26,12 @@ export default class UserProfile extends Component {
 
     handleSubmit = event => {
         event.preventDefault()
-        fetch(`${URL}/${this.state.fields.id}`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json"
-            },
-            body: JSON.stringify(this.state.fields)
-        })
-        .then(resp => resp.json())
-        .then(console.log)
-        .catch()
+      this.props.userUpdate(this.state.fields)
     }
 
     render() {
-        const { username, color, address, wallet, email } = this.state.fields
+
+        const { username, color, address, wallet, email} = this.state.fields
         return(
             <div className="ui form">
                 <h1>Your User Profile</h1>

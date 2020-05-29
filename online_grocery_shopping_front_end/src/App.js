@@ -12,7 +12,7 @@ import Home from './pages/Home'
 import SingleItem from './pages/SingleItem'
 import Signup from './pages/Signup';
 import Checkout from './pages/Checkout'
-import PlacedOrder from './pages/PlacedOrder'
+// import PlacedOrder from './pages/PlacedOrder'
 const BASEURL = "http://localhost:3000"
 const URL = "http://localhost:3000/items"
 
@@ -21,19 +21,22 @@ class App extends Component{
     items: [],
     itemShow: [],
     cart:[],
-    //   2:{item: {category: "Snacks", id: 2, img_url: "https://i.imgur.com/a1cLXfi.jpg", name: "Wheat Thins", price: 3.44}, quantity: 4},
-    // 8: {item: {category: "Produce", id: 8, img_url:"https://i.imgur.com/LWHra2y.jpg", name: "Red Bell Pepper", price: 1.38}, quantity: 5},
-    // 25: {item: {category: "Dairy", id: 25, img_url: "https://i.imgur.com/JdCvsTx.jpg", name: "Milk", price: 4.49}, quantity: 1}
     loggedIn: !!localStorage.getItem("user_id"),
-    currentUser: {},
     categories:[],
     alphabetic: false,
     price: false,
-    userId: localStorage.getItem("user_id")
+    userId: localStorage.getItem("user_id"),
+    currentUser: {
+      username: "",
+      color: "",
+      address: "",
+      wallet: "",
+      email: "",
+      password: ""
+  }
     // items gathers all items, itemShow is what is getting displayed
   }
 
- 
   componentDidMount(){
     fetch(URL)
     .then(res => res.json())
@@ -50,6 +53,14 @@ class App extends Component{
     if(this.state.loggedIn) {
       this.fetchCartItems()
     }
+
+  
+    fetch(`${BASEURL}/users/${this.state.userId}`)
+    .then(resp => resp.json())
+    .then(user => {
+      this.setState({ currentUser: user})
+    })
+  
   }
 
   fetchCartItems = () => {
@@ -208,6 +219,52 @@ class App extends Component{
     this.setState({itemShow:values})
 
   }
+
+  updateWallet=(change)=>{
+    
+    fetch(`${BASEURL}/users/${this.state.userId}`, {
+      method: "PATCH",
+      headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+      },
+      body: JSON.stringify({wallet:this.state.currentUser.wallet+change})
+  })
+  .then(resp => resp.json())
+  .then(user => {
+    let newBalance = {...this.state.currentUser}
+    newBalance.wallet += change
+    this.setState({
+      newBalance
+    })
+  })
+  
+  fetch(`${BASEURL}/cart_items/destroy_all/${this.state.userId}`,{
+    method: 'DELETE'
+  })
+    this.setState({
+        cart:[]
+      })
+   
+  }
+
+  userUpdate=(newUserInfo)=>{
+    fetch(`${BASEURL}/users/${this.state.userId}`, {
+      method: "PATCH",
+      headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+      },
+      body: JSON.stringify(newUserInfo)
+  })
+  .then(resp => resp.json())
+  .then(user => {
+    this.setState({
+      currentUser:user
+    })
+  })
+  .catch()
+  }
   render(){
     return(
       <Router>
@@ -238,7 +295,7 @@ class App extends Component{
                 deleteFromCart={this.deleteFromCart}
               />}
           />
-          <Route exact path="/profile" render={() => <UserProfile user={this.state.currentUser} />}/>
+          <Route exact path="/profile" render={() => <UserProfile currentUser={this.state.currentUser} userUpdate={this.userUpdate} />}/>
           <Route exact path="/signup"
               render={props => <Signup
                 {...props}
@@ -253,8 +310,8 @@ class App extends Component{
                 loggedIn={this.state.loggedIn}
               />}
           />
-          <Route exact path="/checkout" render={(props)=><Checkout {...props} cart={this.state.cart} />}/>
-          <Route exact path="/placedOrder" component={<PlacedOrder/>}/>
+          <Route exact path="/checkout" render={(props)=><Checkout {...props} cart={this.state.cart} currentUser={this.state.currentUser} updateWallet={this.updateWallet}/>}/>
+          {/* <Route exact path="/placedOrder" component={<PlacedOrder/>}/> */}
          </div>
       </Router>
     )
