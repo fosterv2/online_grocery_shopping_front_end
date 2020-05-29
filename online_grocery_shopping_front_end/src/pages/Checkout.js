@@ -62,13 +62,16 @@ render(){
         <>
       <div className="checkoutItems" >
         {this.populateItems()}
-        <div className="total">Total: {this.state.total}</div>
+    <div className="total">
+        <strong>Total: {this.state.total}</strong>
+        </div>
         </div>
         <form className ="Checkout" onSubmit={this.handleSubmit}>
-        <label> Name: </label>
-        <input type ="text" name="name" value={this.state.name} onChange={this.handleChange}/><br/>
-        <label> Address: </label>
-        <input type ="text" name ="address" value={this.state.address}   onChange={this.handleChange}/><br/>
+        <label for="name">Name</label><br/>
+         <input type="text" id="name" name="name" value={this.state.name} onChange={this.handleChange}/><br/>
+
+        <label for="address"> Address: </label><br/>
+        <input id="address" type ="text" name ="address" value={this.state.address}   onChange={this.handleChange}/><br/>
         <p>Wallet: {Math.round(this.props.currentUser.wallet*100)/100}</p>
         Add Money: <input type="text" onChange ={this.handleWallet} ></input>
         {/* <button className="addMoney" onClick ={this.handleWallet}>Add more money</button><br/> */}

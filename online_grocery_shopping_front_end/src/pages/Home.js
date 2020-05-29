@@ -3,7 +3,6 @@ import Filter from '../components/Filter'
 import SearchForm from '../components/SearchForm.js'
 import ItemBrowser from '../components/ItemBrowser';
 import Sort from '../components/Sort'
-// import Sidebar from "react-sidebar";
 
 export default class Home extends Component{
     state={
@@ -16,21 +15,19 @@ export default class Home extends Component{
          })
     }
       
-      // handleCheckbox =(event) =>{
+      handleCheckbox =(event) =>{
         
-      //   // let property = event.target.name
+        // let property = event.target.name
         
-      //   // this.setState({property: !this.state.property })
+        // this.setState({property: !this.state.property })
 
-      //   // if(this.state.property){
-      //   //   this.state.property
-      //   // }
-      // }
-
-    
+        // if(this.state.property){
+        //   this.state.property
+        // }
+      }
 
 render(){
-    const {itemShow,categories,filterBy,addToCart,loggedIn} = this.props
+  const {itemShow,categories,filterBy,addToCart,loggedIn} = this.props
     return(
       <Fragment>
         <Sort onSort ={this.props.onSort} data={this.state}/>
@@ -41,22 +38,14 @@ render(){
             <div className="bar3"></div>
         </div>
         {this.state.showFilter? <Filter categories={categories} filterBy={filterBy}/>:""}
-              <SearchForm onSearch ={this.props.onSearch} />
+              <SearchForm onSearch ={this.props.onSearch}/>
               <ItemBrowser items={itemShow} addToCart={addToCart} loggedIn={loggedIn} /> 
-              {/* changed item to itemShow */}
+              {/* changeditem to itemShow */}
               
         </div>
         
         </Fragment>
     )
 }
-}    
 
-
-
-
-
-
-
-
-
+}

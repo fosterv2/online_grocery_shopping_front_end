@@ -304,8 +304,7 @@ class App extends Component{
     return(
       <Router>
           <NavBar cart={this.state.cart} loggedIn={this.state.loggedIn} signOut={this.signOut} />
-          <div className = "main">
-          <Route exact path="/items/:id" render={props=><SingleItem {...props} items={this.state.items} addToCart={this.addToCart}/>}/>          
+          <div className = "main">          
           <Route exact path="/"
               render={() => <Home
                 itemShow={this.state.itemShow}

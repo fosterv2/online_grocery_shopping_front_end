@@ -193,6 +193,7 @@
   margin: 0;
 }
 /* cart item style */
+.checkOutItems,
 .CartItemCard {
   /* border-top:    1px groove grey; */
   display: flex;
@@ -210,9 +211,20 @@
   /* margin-top: 20px; */
   margin-bottom: 35px;
 }
+.checkOutItems .image{
+  width: 100px;
+  height: 100px;
+  /* margin-top: 20px; */
+  margin-bottom: 50px;
+}
 .CartItemCard .price{
   text-align: right;
   margin-bottom: 10px;
+}
+.checkOutItems .priceAndQty,
+.priceAndQty .total{
+  text-align: center;
+  margin-top: 30px;
 }
 .CartItemCard .delete{
   text-align: center;
@@ -230,12 +242,12 @@
   font-size: 20px;
   border-radius: 5px;
 }
-
+.checkOutItems .name,
 .name {
   text-align: center;
   margin-top: 10px;
 }
-
+.checkOutItems,
 .CartItemCard {
   display: flex;
   /* justify-content: space-around; */
@@ -271,7 +283,38 @@
   margin-top: 20px;
   margin-bottom: 5px;
 }
+/* checkout form style */
+.Checkout input[type=text]{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
 
-.checkout{
+.Checkout input[type=submit],
+.Checkout .addMoney{
+  width: 100%;
   background-color: green;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+
+}
+
+input[type=submit]:hover,
+.Checkout .addMoney:hover{
+  background-color: #45a049;
+}
+
+.Checkout{
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+
 }
