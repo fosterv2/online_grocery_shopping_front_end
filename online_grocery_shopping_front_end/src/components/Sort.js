@@ -1,15 +1,23 @@
-import React, {Component} from 'react'
+import React from 'react'
 
 const Sort = props =>{
     const handleCheck= (event) =>{
-        props.onSort(event)
-    
+        props.onSort(event)    
     }
-    return(
-        <div className ="Sort">Sort
-        <input className ="checkbox" type="checkbox" name ="alphabetic" value={props.data.alphabetic} onClick ={handleCheck}/>
-        <input className ="checkbox" type="checkbox" name = "price" value ={props.data.price} onClick ={handleCheck} />
-        </div>
+    const handleSort = (event) =>{
+      props.onSort(event)
+    }
+    return (
+    <form className ="Sort">
+    <label htmlFor="sorts">Choose a sort: </label>
+    <select onClick ={ handleSort}>
+    <option value="None">None</option>
+    <option value="AlphaABC">Alphabetic: ABC</option>
+    <option value="AlphaZYX">Alphabetic: ZYX</option>
+    <option value="PriceHL">Price: High to Low</option>
+    <option value="PriceLH">Price: Low to High</option>
+    </select >
+    </form>
     )
 }
 

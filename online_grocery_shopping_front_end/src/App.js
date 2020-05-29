@@ -23,8 +23,6 @@ class App extends Component{
     cart:[],
     loggedIn: !!localStorage.getItem("user_id"),
     categories:[],
-    alphabetic: false,
-    price: false,
     userId: localStorage.getItem("user_id"),
     currentUser: {
       username: "",
@@ -83,6 +81,32 @@ class App extends Component{
   
    
     //increment Qty
+    handleSort =(event) =>{
+      let newItems = [...this.state.items]
+      let priceItems = [...this.state.items]
+      let arrayABC = newItems.sort((a, b) => (a.name > b.name) ? 1 : (a.name === b.name) ? ((a.size > b.size) ? 1 : -1) : -1 )
+      let arrayZYX = [...arrayABC].reverse()
+      let arrayLH = priceItems.sort((a, b) => (a.price > b.price) ? 1 : (a.price === b.price) ? ((a.size > b.size) ? 1 : -1) : -1 )
+      let arrayHL = [...arrayLH].reverse()
+      switch (event.target.value) {
+      case "None":
+      this.setState({itemShow: this.state.items})
+      break;
+      case "AlphaABC":
+      this.setState({itemShow: arrayABC})
+      break;
+      case "AlphaZYX":
+      this.setState({itemShow: arrayZYX})
+      break;
+      case "PriceHL":
+      this.setState({itemShow: arrayHL})
+      break;
+      case "PriceLH":
+      this.setState({itemShow: arrayLH})
+      break;
+    }
+  }
+
   addToCart=(item,quantity=1)=>{
 
   //  const find = Object.keys(this.state.cart).find(cartItem=>this.state.cart[cartItem].item.id===item.id)
@@ -246,7 +270,7 @@ class App extends Component{
     let newBalance = {...this.state.currentUser}
     newBalance.wallet += change
     this.setState({
-      newBalance
+      currentUser : newBalance
     })
   })
   
@@ -280,7 +304,7 @@ class App extends Component{
     return(
       <Router>
           <NavBar cart={this.state.cart} loggedIn={this.state.loggedIn} signOut={this.signOut} />
-          <div className = "main">
+          <div className = "main">          
           <Route exact path="/"
               render={() => <Home
                 itemShow={this.state.itemShow}
@@ -289,6 +313,7 @@ class App extends Component{
                 filterBy={this.filterBy}
                 categories={this.state.categories}
                 loggedIn={this.state.loggedIn}
+                onSort ={this.handleSort}
               />}
           />
           <Route exact path="/items/:id"
@@ -307,7 +332,13 @@ class App extends Component{
                 deleteFromCart={this.deleteFromCart}
               />}
           />
-          <Route exact path="/profile" render={() => <UserProfile currentUser={this.state.currentUser} userUpdate={this.userUpdate} />}/>
+          <Route exact path="/profile"
+              render={props => <UserProfile
+                {...props}
+                currentUser={this.state.currentUser}
+                userUpdate={this.userUpdate}
+              />}
+          />
           <Route exact path="/signup"
               render={props => <Signup
                 {...props}
@@ -322,7 +353,14 @@ class App extends Component{
                 loggedIn={this.state.loggedIn}
               />}
           />
-          <Route exact path="/checkout" render={(props)=><Checkout {...props} cart={this.state.cart} currentUser={this.state.currentUser} updateWallet={this.updateWallet}/>}/>
+          <Route exact path="/checkout"
+              render={(props)=><Checkout
+                {...props}
+                cart={this.state.cart}
+                currentUser={this.state.currentUser}
+                updateWallet={this.updateWallet}
+              />}
+          />
           {/* <Route exact path="/placedOrder" component={<PlacedOrder/>}/> */}
          </div>
       </Router>

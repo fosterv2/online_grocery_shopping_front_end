@@ -1,5 +1,5 @@
 .items {
-  background-color: grey;
+  background-color: green;
   display: flex;
   flex-wrap: wrap;
   align-items: stretch;
@@ -10,7 +10,7 @@
 
 .item.card {
   background-color: white;
-  border: gray;
+  border: rgb(1, 41, 1);
   border-radius: 10px;
   margin: 1em;
   padding: 1em;
@@ -34,7 +34,7 @@
 
 .buy button {
   margin-top: 10px;
-  background-color: gray;
+  background-color: green;
   font-size: 20px;
   border-radius: 5px;
   color: white;
@@ -43,11 +43,11 @@
 }
 
 .buy button:hover {
-  background-color: #606060;
+  background-color: #0aad12;
 }
 
 .item.info {
   min-height: 200px;
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid green;
   padding-bottom: 3px;
 }
