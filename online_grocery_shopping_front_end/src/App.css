@@ -75,7 +75,7 @@
 } */
 /* display all items style */
 .items {
-  background-color: grey;
+  background-color: green;
   display: flex;
   flex-wrap: wrap;
   align-items: stretch;
@@ -86,7 +86,7 @@
 
 .item.card {
   background-color: white;
-  border: gray;
+  border: green;
   border-radius: 10px;
   margin: 1em;
   padding: 1em;
@@ -110,14 +110,14 @@
 
 .buy button {
   margin-top: 10px;
-  background-color: gray;
+  background-color: green;
   font-size: 20px;
   border-radius: 5px;
 }
 
 .item.info {
   min-height: 200px;
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid green;
   padding-bottom: 3px;
 }
 
@@ -133,7 +133,7 @@
 .SingleItemDisplay .plus{
   padding: 7px 10px 8px;
   height: 41px;
-  background-color: grey;
+  background-color: green;
   border: 1px solid #efefef;
   cursor:pointer;
 }
