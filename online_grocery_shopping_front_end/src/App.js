@@ -21,6 +21,7 @@ class App extends Component{
     items: [],
     itemShow: [],
     cart:[],
+    loggedIn: !!localStorage.getItem("user_id"),
     categories:[],
     alphabetic: false,
     price: false,
@@ -49,21 +50,28 @@ class App extends Component{
       })
     }
     )
-  
+    if(this.state.loggedIn) {
+      this.fetchCartItems()
+      this.fetchCurrentUser()
+    }
+  }
+
+  fetchCartItems = () => {
     fetch(`${BASEURL}/cart_items/${this.state.userId}`)
     .then(res=>res.json())
     .then(data=>{
       this.setState({
-        cart:data
+        cart: data
       })
     })
-  
+  }
+
+  fetchCurrentUser = () => {
     fetch(`${BASEURL}/users/${this.state.userId}`)
     .then(resp => resp.json())
     .then(user => {
       this.setState({ currentUser: user})
     })
-  
   }
 
     //get user data and add to state, pass to checkout and user profile update 
@@ -188,9 +196,23 @@ class App extends Component{
   }
 
   login = user => {
-    // this.setState({ currentUser: user })
     localStorage.setItem("user_id", user.id)
+    this.setState({
+      loggedIn: true,
+      userId: localStorage.getItem("user_id")
+    })
+    this.fetchCartItems()
+    this.fetchCurrentUser()
   }
+
+  signOut = () => {
+    this.setState({
+      loggedIn: false,
+      cart: [],
+      currentUser: {}
+    })
+  }
+
   handleSearch = (event) =>{
     let searchValue = event.target.value.toLowerCase()
     let values = this.state.items.filter(item => item.name.toLowerCase().includes(searchValue))
@@ -257,27 +279,55 @@ class App extends Component{
   render(){
     return(
       <Router>
-          <NavBar cart={this.state.cart}/>
+          <NavBar cart={this.state.cart} loggedIn={this.state.loggedIn} signOut={this.signOut} />
           <div className = "main">
-          <Route exact path="/" render={()=><Home itemShow={this.state.itemShow} onSearch ={this.handleSearch} addToCart={this.addToCart}
-          filterBy={this.filterBy} categories={this.state.categories}/>}/>
-          <Route exact path="/items/:id" render={props=><SingleItem {...props} items={this.state.items} addToCart={this.addToCart}/>}/>
+          <Route exact path="/"
+              render={() => <Home
+                itemShow={this.state.itemShow}
+                onSearch ={this.handleSearch}
+                addToCart={this.addToCart}
+                filterBy={this.filterBy}
+                categories={this.state.categories}
+                loggedIn={this.state.loggedIn}
+              />}
+          />
+          <Route exact path="/items/:id"
+              render={props => <SingleItem
+                {...props}
+                items={this.state.items}
+                addToCart={this.addToCart}
+                loggedIn={this.state.loggedIn}
+              />}
+          />
           <Route exact path="/about" component={AboutUs}/>
-          <Route exact path="/cart" render={()=><Cart cart={this.state.cart} updateCart={this.updateCart} deleteFromCart={this.deleteFromCart}/>}/>
+          <Route exact path="/cart"
+              render={()=><Cart
+                cart={this.state.cart}
+                updateCart={this.updateCart}
+                deleteFromCart={this.deleteFromCart}
+              />}
+          />
           <Route exact path="/profile" render={() => <UserProfile currentUser={this.state.currentUser} userUpdate={this.userUpdate} />}/>
-          <Route exact path="/signup" render={props => <Signup {...props} onLogin={this.login} />}/>
-          <Route exact path="/login" render={props => <Login {...props} onLogin={this.login} />}/>
+          <Route exact path="/signup"
+              render={props => <Signup
+                {...props}
+                onLogin={this.login}
+                loggedIn={this.state.loggedIn}
+              />}
+          />
+          <Route exact path="/login"
+              render={props => <Login
+                {...props}
+                onLogin={this.login}
+                loggedIn={this.state.loggedIn}
+              />}
+          />
           <Route exact path="/checkout" render={(props)=><Checkout {...props} cart={this.state.cart} currentUser={this.state.currentUser} updateWallet={this.updateWallet}/>}/>
-          {/* <Route exact path="/placedOrder" component={placedOrder}/> */}
-          {/* <Route exact path="/PlacedOrder" render={(props) => <PlacedOrder {...props} wallet={this.state.currentUser.wallet}/>}/> */}
+          {/* <Route exact path="/placedOrder" component={<PlacedOrder/>}/> */}
          </div>
       </Router>
     )
   }
 }
 
-
-
-
 export default App;
-

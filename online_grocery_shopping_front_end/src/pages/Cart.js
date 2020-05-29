@@ -22,7 +22,7 @@ render(){
         
         // <Checkout data ={this.props} />
         
-        <div>
+        <div className="total">
             {this.populateItems()}
     <div className="total">Total: {this.calculateTotal()}</div>
     <div>

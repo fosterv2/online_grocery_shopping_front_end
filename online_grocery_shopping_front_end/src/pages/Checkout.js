@@ -55,7 +55,9 @@ render(){
         <>
       <div className="checkoutItems" >
         {this.populateItems()}
-    <div className="total">Total: {this.state.total}</div>
+    <div className="total">
+        <strong>Total: {this.state.total}</strong>
+        </div>
         </div>
         <form className ="Checkout" onSubmit={this.handleSubmit}>
         <label> Name: </label>

@@ -3,8 +3,8 @@ import ItemCard from './ItemCard'
 
 class ItemBrowser extends Component {
     renderItems = () => {
-        const { items,addToCart } = this.props
-        return items.map(item => <ItemCard key={item.id} info={item} addToCart={addToCart}/>)
+        const { items,addToCart,loggedIn } = this.props
+        return items.map(item => <ItemCard key={item.id} info={item} addToCart={addToCart} loggedIn={loggedIn} />)
     }
 
     render() {

@@ -17,7 +17,7 @@ const {item, quantity} = props.itemQty
         ${item.price} * {quantity}
         </div>
         <div className="total">
-        $ {Math.round(item.price * quantity*100)/100}
+       <strong> $ {Math.round(item.price * quantity*100)/100}</strong>
    </div>
    </div>
  )

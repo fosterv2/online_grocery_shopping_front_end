@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from "react-router-dom";
 
 const ItemCard = (props) => {
-    const { info,addToCart } = props
+    const { info,addToCart,loggedIn } = props
 
     const handleClick=()=>{
         addToCart(info)
@@ -29,10 +29,10 @@ const ItemCard = (props) => {
                     </div>
                 </div>
             </div>
-           
+            {!loggedIn ? null :
             <div className="buy">
                 <button onClick={handleClick}>Add to cart</button>
-            </div>
+            </div>}
         </div>
     )
 }

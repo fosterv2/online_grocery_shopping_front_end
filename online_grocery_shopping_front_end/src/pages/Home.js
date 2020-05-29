@@ -29,25 +29,25 @@ export default class Home extends Component{
     
     
 render(){
-  const {itemShow,categories,filterBy,addToCart} = this.props
-  return(
-    <Fragment>
-      <Sort onSort ={this.handleCheckbox} data={this.state}/>
-      <div className = "home">
-      <div className={this.state.showFilter?"change":"filterContainer"} onClick={this.toggleFilter}>
-          <div className="bar1"></div>
-          <div className="bar2"></div>
-          <div className="bar3"></div>
-      </div>
-      {this.state.showFilter? <Filter categories={categories} filterBy={filterBy}/>:""}
-            <SearchForm onSearch ={this.props.onSearch}/>
-            <ItemBrowser items={itemShow} addToCart={addToCart}/> 
-            {/* changed item to itemShow */}
-            
-      </div>
-      
-      </Fragment>
-  )
+    const {itemShow,categories,filterBy,addToCart,loggedIn} = this.props
+    return(
+      <Fragment>
+        <Sort onSort ={this.handleCheckbox} data={this.state}/>
+        <div className = "home">
+        <div className={this.state.showFilter?"change":"filterContainer"} onClick={this.toggleFilter}>
+            <div className="bar1"></div>
+            <div className="bar2"></div>
+            <div className="bar3"></div>
+        </div>
+        {this.state.showFilter? <Filter categories={categories} filterBy={filterBy}/>:""}
+              <SearchForm onSearch ={this.props.onSearch} />
+              <ItemBrowser items={itemShow} addToCart={addToCart} loggedIn={loggedIn} /> 
+              {/* changed item to itemShow */}
+              
+        </div>
+        
+        </Fragment>
+    )
 }
 }    
 
