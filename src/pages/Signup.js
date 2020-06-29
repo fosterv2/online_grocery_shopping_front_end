@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
-const URL = "http://localhost:3000/users"
+// const URL = "http://localhost:3000/users"
+const URL = "https://not-so-fresh-backend.herokuapp.com/users"
 const EMPTYFIELDS = {
     username: "",
     color: "",

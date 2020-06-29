@@ -13,8 +13,10 @@ import SingleItem from './pages/SingleItem'
 import Signup from './pages/Signup';
 import Checkout from './pages/Checkout'
 // import PlacedOrder from './pages/PlacedOrder'
-const BASEURL = "http://localhost:3000"
-const URL = "http://localhost:3000/items"
+// const BASEURL = "http://localhost:3000"
+const BASEURL = "https://not-so-fresh-backend.herokuapp.com/"
+// const URL = "http://localhost:3000/items"
+const URL = "https://not-so-fresh-backend.herokuapp.com/items"
 
 class App extends Component{
   state={

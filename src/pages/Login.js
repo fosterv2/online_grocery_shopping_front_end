@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
-const URL = "http://localhost:3000/auth"
+// const URL = "http://localhost:3000/auth"
+const URL = "https://not-so-fresh-backend.herokuapp.com/auth"
 const EMPTYFIELDS = {
     username: "",
     password: ""
